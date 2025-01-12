@@ -11,3 +11,7 @@ This CSV is behind what is published online.
 Users can control what is published via a YAML that takes in arguments such as:
 1. List only public repositories
 2. List only repositories with a minimum number of stars
+
+#### Future
+
+Look at commits or the changelog to summarize changes since the last update.
