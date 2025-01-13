@@ -1,17 +1,12 @@
 ### RepoSum: AutoCreate and Update GitHub Website With Summary of All the Public Repositories
 
-Keeping your GitHub website updated can be a pain. We provide a script that runs using GitHub Actions on a regular cadence to:
+Keeping your GitHub website updated can be a pain. The [./gen_repo_summaries.py](script) iterates over all the repositories in the 'organization' to get the URL and metadata, uses OpenAI to come up with a whippy 2 sentence summary based on the readme of the repository, and generates a CSV. This CSV can be used to power the website. 
 
-1. Iterate over all the repositories in the 'organization' to get the URL and metadata
-2. Uses ChatGPT to summarize each repository
-3. Updates a CSV
-
-This CSV is behind what is published online.
-
-Users can control what is published via a YAML that takes in arguments such as:
-1. List only public repositories
-2. List only repositories with a minimum number of stars
+The script can be configured to be run using GitHub Actions. The repository shows how under [.github/workflows](.github/workflows). You will have to set your Github and OpenAI tokens.
 
 #### Future
 
-Look at commits or the changelog to summarize changes since the last update.
+* Look at commits or the changelog to summarize changes since the last update.
+* Users can control what is published via a YAML that takes in arguments such as:
+1. List only public repositories
+2. List only repositories with a minimum number of stars
