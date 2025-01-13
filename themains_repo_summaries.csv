@@ -1,0 +1,2071 @@
+Name,URL,Description,Language,Stars,Forks,Open Issues,README,Summary
+rdomains,https://github.com/themains/rdomains,Classifying the content of domains,R,56,8,5,"## rdomains: Classify Domains Based on Their Content
+
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdomains)](https://cran.r-project.org/package=rdomains) 
+[![Build status](https://ci.appveyor.com/api/projects/status/3vjmwn7jyf1s17e4?svg=true)](https://ci.appveyor.com/project/soodoku/rdomains)
+[![codecov](https://codecov.io/github/themains/rdomains/branch/master/graph/badge.svg)](https://codecov.io/github/themains/rdomains/)
+![](http://cranlogs.r-pkg.org/badges/grand-total/rdomains)
+
+The package provides a few ways to classify domains based on their content. You can either get the categorizations from [shallalist](http://www.shallalist.de/) (which has stopped its service --- the latest you will get is from 1/14/22), [trusted (McAfee)](https://trustedsource.org/), DMOZ (the service has ended; available at [curlie](https://curlie.org/)), [Alexa API](https://docs.aws.amazon.com/AlexaWebInfoService/latest/), which uses the DMOZ Data (now hosted at [https://curlie.org](https://curlie.org)), or [virustotal API](http://virustotal.com), or use validated machine learning models based off the shallalist data.
+
+### Installation
+
+To get the current release version from CRAN:
+
+```r
+install.packages(""rdomains"")
+```
+
+To get the current development version from GitHub:
+
+```r
+# install.packages(""devtools"")
+devtools::install_github(""themains/rdomains"", build_vignettes = TRUE)
+```
+
+### Usage
+
+To learn how to use rdomains, launch the vignette within R:
+
+```r
+vignette(""rdomains"", package = ""rdomains"")
+```
+
+### License
+
+Scripts are released under the [MIT License](https://opensource.org/licenses/MIT).
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+abuse_ip_db,https://github.com/themains/abuse_ip_db,Get data on abusive IPs along with type of abuse and details of abuse from abuseipdb,R,5,0,1,"## Access Abuse IP DB from R
+
+[http://www.abuseipdb.com/](http://www.abuseipdb.com/) carries information on abusive IPs, including the type of the abuse, and details of the abuse reported. 
+It has a weak API that returns how often was did an IP commit each type of abuse. Reports of abuse by a particular IP can be gotten via scraping [http://www.abuseipdb.com/report-history/$IP-Address$](http://www.abuseipdb.com/report-history/). 
+
+The [script](abuse_ip_db.R) gets the data from API as well as data from scraping the site. It takes a [list of IPs](sample_in.csv) and outputs a CSV with a few additional columns: `total` (total number of reports), `bad_isp` (is it a bad isp), `trusted_isp` (is it a trusted isp), `reports` (number of times each type of abuse has been recorder), `details` (details of each abuse). 
+
+### License
+Scripts are released under the [MIT License](https://opensource.org/licenses/MIT).
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+virustotal,https://github.com/themains/virustotal,R client for the Virustotal Public API. Virustotal is a Google service that analyzes files and URLs for viruses etc.,HTML,11,3,1,"## virustotal: R Client for the VirusTotal Public API 2.0
+
+[![Build status](https://ci.appveyor.com/api/projects/status/5o45rcviuuxtobo7?svg=true)](https://ci.appveyor.com/project/soodoku/virustotal-6owbf)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/virustotal)](https://cran.r-project.org/package=virustotal)
+![](https://cranlogs.r-pkg.org/badges/grand-total/virustotal)
+[![codecov](https://codecov.io/gh/themains/virustotal/branch/master/graph/badge.svg)](https://app.codecov.io/gh/themains/virustotal)
+
+
+Use [VirusTotal](http://www.virustotal.com), a Google service that analyzes files and URLs for viruses, worms, trojans etc., provides category of the content hosted by a domain from a variety of prominent services, provides passive DNS information, among other things. 
+
+As of June, 2016, Public API 2.0 had the following rate limits:
+
+|  Unit of time | Rate Limit            |
+| ------------- | --------------------- |
+| Minute        | 4 requests/minute     |
+| Day           | 5760 requests/day     |
+| Month         | 178560 requests/month |
+
+See [https://www.virustotal.com](https://www.virustotal.com) for more information. 
+
+### Installation
+
+To get the current released version from CRAN:
+```r
+install.packages(""virustotal"")
+```
+
+To get the current development version from GitHub:
+
+```r
+install.packages(""devtools"")
+devtools::install_github(""themains/virustotal"", build_vignettes = TRUE)
+```
+
+### Usage
+
+To learn about how to use the package, read the [vignette](vignettes/using_virustotal.md). Or launch the vignette within R:
+
+```r
+# Using virustotal
+vignette(""using_virustotal"", package = ""virustotal"")
+```
+
+### License
+Scripts are released under the [MIT License](https://opensource.org/licenses/MIT).
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+dmoz_csv,https://github.com/themains/dmoz_csv,Convert DMOZ content.rdf.u8.gz into a CSV file,Python,1,0,1,"## DMOZ CSV
+
+[DMOZ](http://dmoztools.net)<sup>[1](#dmoz_closed)</sup> is a large communally maintained open directory that categorizes web content. The data are posted in a [XML format](https://dmoztools.net/docs/en/rdf.html). 
+
+The [python scripts](scripts/) provided here convert DMOZ content.rdf.u8.gz into a CSV file.  
+
+The structure of the file is
+
+""URL"",""Category 1"",""Category 2"",..........
+
+Example:
+
+http://www.demus.it/
+
+is in
+
+DMOZ Categories (1-4 of 4)
+Business: Food and Related Products: Beverages: Coffee (1)
+Regional: Europe: Italy: Regions: Friuli-Venezia Giulia: Localities: Trieste: Business and Economy (1)
+World: Italiano: Affari: Alimentazione e Prodotti Correlati: Bevande: Caffè (1)
+World: Italiano: Regionale: Europa: Italia: Friuli-Venezia Giulia: Provincia di Trieste: Località: Trieste: Affari e Economia (1)
+
+The corresponding line for it will be generated as:
+```
+""http://www.demus.it/"",""Top/Regional/Europe/Italy/Friuli-Venezia_Giulia/Localities/Trieste/Business_and_Economy"",""Top/World/Italiano/Affari/Alimentazione_e_Prodotti_Correlati/Bevande/Caffè"",""Top/World/Italiano/Regionale/Europa/Italia/Friuli-Venezia_Giulia/Provincia_di_Trieste/Località/Trieste/Affari_e_Economia"",""Top/Business/Food_and_Related_Products/Beverages/Coffee""
+```
+
+<a name=""dmoz_closed"">1</a>: Dmoz.org was discontinued on March 17, 2017. The content as moved to http://dmoztools.net And now hosted on
+https://curlie.org/
+
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+trusted,https://github.com/themains/trusted,Use the trustedsource API to classify content of domains. comScore 2004 data included.,Python,8,4,0,"## Trusted (McAfee) Domain Classifier
+
+Relying on commercial APIs is not optimal. For one, we generally don't know the error they make in classifying the content of domains. (To my knowledge, no one publishes error rates. But even where they do, it would be inadvisable to take them on faith.) So to calibrate the error, one may want to handcode a large random sample of domains and report the confusion matrix. Or better yet perhaps, one may want to devise own algorithm to categorize domains. Both are easy enough to do but need some doing. For now, APIs. 
+
+There are a variety of APIs in the market that provide off-the-shelf solutions for categorizing the content hosted on different domains. Prominent among them are: [Zvelvo](https://zvelo.com/), [Similar Web](https://developer.similarweb.com/website_categorization_API), [DatumBox](http://www.datumbox.com/machine-learning-api/), [Fortiguard](http://www.fortiguard.com/static/webfiltering.html) and [Trusted Source](http://www.trustedsource.org/en/feedback/url).
+
+Of these, we pick [Trusted Source](http://www.trustedsource.org/en/feedback/url) (McAfee) because it is free. (The script for categorizing domains using the Trusted Source API is provided below.) We apply the script to 2004 comScore browsing data, producing a file that contains unique domains and the content category output by the API. 
+
+### Script
+
+The script [api_domain_classifier](api_domain_classifier.py) takes a csv with a column of domain names ([sample input](sample_in.csv)) and appends a column containing the content category according to [Trusted Source](http://www.trustedsource.org/en/feedback/url) ([sample output](sample_out.csv)). (Note that the script is larger than a conventional API script because Trusted Source returns HTML webpage in response to requests.) The script is very modestly tailored towards large files in the following manner: If you have a large input file, you would ideally want to split the file and run multiple scripts in parallel across potentially different servers. To ease collation of the final data, the script defaults to an output file name that tracks what portion of the file is being processed of the whole. So the output file for 1 of 8 parts will be named `url_category_part_1_8` by default. The two command line arguments `current_part`, and `total_parts` are **neccessary**. For cases where file hasn't been split, just pass 1 1. For example:
+
+```
+python api_domain_classifier.py 1 1  
+```
+Other than the neccessary command line options, following options (within the script) can be tweaked:  
+* INPUT_FILE: Path to the Input file (Line 7) 
+* URL_COLUMN_NAME: name of the url column (Line 8)
+* URL_CATEGORY_COLUMN_NAME: name of the url_catefoty column name in outputfile (Line 9)
+* FINAL_OUTPUT_FILE: name of the final output file (Line 22) 
+
+#### Misc. Notes
+
+* Splitting Files
+	* Unix: `split -l 500 myfile segment` (Splits into 500 line chunks.)
+
+* Merging multiple csv files into one big file.
+	* On Windows: `copy *.csv combined.csv`
+	* On Unix: `cat *csv > all.csv`
+
+* Trusted Source doesn't make it clear how to encode requests in the URL. A little inspection suggests that if you want to check the category of [nytimes.com](http://www.nytimes.com), type in [http://www.trustedsource.org/en/feedback/url?action=checksingle&product=12-ts-3&url=http://www.nytimes.com](http://www.trustedsource.org/en/feedback/url?action=checksingle&product=12-ts-3&url=http://www.nytimes.com)
+
+* Some R code for implementing the same request:
+
+```{r}
+library(rvest)
+library(magrittr)
+request <- httr::GET(""http://www.trustedsource.org/en/feedback/url?action=checksingle&product=12-ts-3&url=http://www.nytimes.com"")
+webpage <- rvest::html(request)
+tables <- webpage %>% html_nodes(""table"")
+td <- tables[[4]] %>% html_nodes(""td"")
+html_text(td[[9]])
+# ""- General News""
+```
+
+### Data
+
+comScore provides content category for some domains. For instance, in [Ideological Segregation Online and Offline](http://www.nber.org/papers/w15916) (by Matthew Gentzkow and Jesse Shapiro), note:
+
+> To construct our universe of national political news and opinion websites, we begin with all sites that comScore categorizes as “General News” or “Politics.” We exclude sites of local newspapers and television stations, other local news and opinion sites, and sites devoted entirely to non-political topics such as sports or entertainment. We supplement this list with the sites of the 10 largest US newspapers (as defined by the Audit Bureau of Circulations for the first half of 2009). We also add all domains that appear on any of thirteen online lists of political news and opinion websites. The final list includes 1,379 sites.
+
+However, as they note, the list is a bit incomplete. And the use of thirteen online lists seems somewhat adhoc. In light of that, and to make it easier for researchers to exploit the comScore data, we provide categories for all unique domains in the 2004 comScore dataset. (Academic users can access the comScore browsing data from the [Wharton Research Data Service](https://wrds-web.wharton.upenn.edu/wrds/ds/comscore/index.cfm?).) Given the file size, the data set is posted on Harvard DVN.
+
+* [2004 data](http://dx.doi.org/10.7910/DVN/BPS1OK)
+
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+keyword_porn,https://github.com/themains/keyword_porn,"Use keywords, tld, and some other attributes of the domain name to classify content of domain as pornographic or not",HTML,1,2,0,"## Classifying Pornographic Domains Using Keywords and Domain Suffixes
+
+We build a model about whether or not a particular domain carries pornographic content using a short list of keywords and a list of domain level suffixes. To build the model, we use data from [Shallalist](http://www.shallalist.de/), which maintains a database of category of content hosted by a domain. Details about the method are outlined in [Where's the Porn? Classifying Porn Domains Using a Calibrated Keyword Classifier](http://gbytes.gsood.com/2015/07/23/wheres-the-porn-classifying-porn-domains-using-a-calibrated-keyword-classifier/). 
+
+The [classifier](shalla.md) using the following [shallalist data](shalla_cat_unique_host.csv), [list of keywords](knotty_words.txt) and [domain suffixes](https://publicsuffix.org/list/) achieves an accuracy of nearly 80\%.
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+themains.github.io,https://github.com/themains/themains.github.io,Website for the organization.,HTML,0,0,0,"# themains.github.io
+
+The Mains organization website
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+know_your_ip,https://github.com/themains/know_your_ip,"Know Your IP: Get location, blacklist status, shodan and censys results, and more.",Python,17,1,2,"Know Your IP
+------------
+
+.. image:: https://ci.appveyor.com/api/projects/status/qfvbu8h99ymtw2ub?svg=true
+    :target: https://ci.appveyor.com/project/themains/know_your_ip
+.. image:: https://img.shields.io/pypi/v/know_your_ip.svg
+    :target: https://pypi.python.org/pypi/know_your_ip
+.. image:: https://readthedocs.org/projects/know-your-ip/badge/?version=latest
+    :target: http://know-your-ip.readthedocs.io/en/latest/?badge=latest
+.. image:: https://static.pepy.tech/badge/know-your-ip
+    :target: https://pepy.tech/project/know-your-ip
+
+Get data on IP addresses. Learn where they are located (lat/long,
+country, city, time zone), whether they are blacklisted or not (by
+`abuseipdb <http://http://www.abuseipdb.com>`__,
+`virustotal <http://www.virustotal.com>`__,
+`ipvoid <http://ipvoid.com/>`__, etc.) and for what (and when they were
+blacklisted), which ports are open, and what services are running (via
+`shodan <http://shodan.io>`__), and what you get when you ping or issue
+a traceroute. 
+
+If you are curious about potential application of the package, we have a
+`presentation <https://github.com/themains/know_your_ip/tree/master/know_your_ip/presentation/kip.pdf>`__ on 
+its use in cybersecurity analysis workflow.
+
+You can use the package in two different ways. You can call it from the shell, or you can
+use it as an external library. From the shell, you can run ``know_your_ip``. It takes a csv 
+with a single column of IP addresses (sample input file: `input.csv <know_your_ip/examples/input.csv>`__), 
+details about the API keys (in `know_your_ip.cfg <know_your_ip/know_your_ip.cfg>`__) 
+and which columns you would like from which service (in `this example columns.txt <know_your_ip/columns.txt>`__), 
+and appends the requested results to the IP list (sample output file: `output.csv <know_your_ip/examples/output.csv>`__). 
+This simple setup allows you to mix and match easily. 
+
+If you want to use it as an external library, the package also provides that. The function ``query_ip`` relies
+on the same config files as ``know_your_ip`` and takes an IP address. We illustrate its use below. You can 
+also get data from specific services. For instance, if you only care about getting the MaxMind data, 
+use ``maxmind_geocode_ip``. If you would like data from the abuseipdb, call the ``abuseipdb_api`` function, etc. 
+These functions still rely on the global config and columns files. For examples of how to use the package, 
+see `example.py <know_your_ip/examples/example.py>`__ or the jupyter notebook `example.ipynb <know_your_ip/examples/example.ipynb>`__.
+
+Brief Primer on Functionality
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  **Geocoding IPs**: There is no simple way to discern the location of
+   an IP. The locations are typically inferred from data on delay and
+   topology along with information from private and public databases.
+   For instance, one algorithm starts with a database of locations of
+   various 'landmarks', calculates the maximum distance of the last
+   router before IP from the landmarks using Internet speed, and builds
+   a boundary within which the router must be present and then takes the
+   centroid of it. The accuracy of these inferences is generally
+   unknown, but can be fairly \`poor.' For instance, most geolocation
+   services place my IP more than 30 miles away from where I am. 
+   Try http://www.geoipinfo.com/.
+
+   The script provides hook to `Maxmind City Lite
+   DB <http://dev.maxmind.com/geoip/geoip2/geolite2/>`__. It expects a
+   copy of the database to be in the folder in which the script is run.
+   To download the database, go
+   `here <http://dev.maxmind.com/geoip/geoip2/geolite2/>`__. The
+   function ``maxmind_geocode_ip`` returns city, country, lat/long etc.
+
+-  **Timezone**: In theory, there are 24 time zones. In practice, a few
+   more. For instance, countries like India have half-hour offsets.
+   Theoretical mappings can be easily created for lat/long data based on
+   the 15 degrees longitude span. For practical mappings, one strategy
+   is to map (nearest) city to time zone (recall the smallish lists that
+   you scroll though on your computer's time/date program.) There are a
+   variety of services for getting the timezone, including, but not
+   limited to,
+
+   -  `Time and Date <http://www.timeanddate.com/news/time/>`__
+   -  `City Time Zone <http://www.citytimezones.info/index.htm>`__
+   -  `Edval <http://www.edval.biz/mapping-lat-lng-s-to-timezones>`__
+   -  `Geonames <http://www.geonames.org/export/ws-overview.html>`__
+   -  `Worldtime.io <http://worldtime.io/>`__
+   -  `Twinsun.com <http://www.twinsun.com/tz/tz-link.htm>`__
+
+For its ease, we choose a `Python hook to nodeJS lat/long to
+timezone <https://github.com/pegler/>`__. To get the timezone, we first
+need to geocode the IP (see above). The function ``tzwhere_timezone`` takes 
+lat/long and returns timezone.
+
+-  **Ping**: Sends out a ICMP echo request and waits for the reply.
+   Measures round-trip time (min, max, and mean), reporting errors and
+   packet loss. If there is a timeout, the function produces nothing. If 
+   there is a reply, it returns::
+
+    packets_sent, packets_received, packets_lost, min_time, 
+    max_time, avg_time
+
+-  **Traceroute**: Sends a UDP (or ICMP) packet. Builds the path for how
+   the request is routed, noting routers and time.
+
+-  **Backgrounder**:
+
+   -  `censys.io <http://censys.io>`__: Performs ZMap and ZGrab scans of
+      IPv4 address space. To use censys.io, you must first register.
+      Once you register and have the API key, put in
+      `here <./know_your_ip/know_your_ip.cfg>`__. The function takes an IP and returns
+      asn, timezone, country etc. For a full list, see
+      https://censys.io/ipv4/help.
+
+   -  `shodan.io <http://shodan.io>`__: Scans devices connected to the
+      Internet for services, open ports etc. You must register to use
+      shodan.io. Querying costs money. Once you register and have the
+      API key, put in `here <./know_your_ip/know_your_ip.cfg>`__. The script implements
+      two API calls: shodan/host/ip and shodan/scan. The function takes
+      a list of IPs and returns
+
+-  **Blacklists and Backgrounders**: The number of services that
+   maintain blacklists is enormous. Here's a list of some of the
+   services: TornevallNET, BlockList\_de, Spamhaus, MyWOT, SpamRATS,
+   Malc0de, SpyEye, GoogleSafeBrowsing, ProjectHoneypot, etc. Some of
+   the services report results from other services as part of their
+   results. In this script, we implement hooks to the following three:
+
+   -  `virustotal.com <http://virustotal.com>`__: A Google company that
+      analyzes and tracks suspicious files, URLs, and IPs. You must
+      register to use virustotal. Once you register and have the API
+      key, put in `here <./know_your_ip/know_your_ip.cfg>`__. The function implements
+      retrieving IP address reports method.
+
+   -  `abuseipdb.com <http://abuseipdb.com>`__: Tracks reports on IPs.
+      You must register to use the API. Once you register and have the
+      API key, put in `here <./know_your_ip/know_your_ip.cfg>`__. There is a limit of
+      5k pings per month. The function that we implement here is a
+      mixture of API and scraping as the API doesn't return details of
+      the reports filed.
+
+   -  `ipvoid.com <http://ipvoid.com>`__: Tracks information on IPs.
+      There is no API. We scrape information about IPs including status
+      on various blacklist sites.
+      ipvoid.com is now throttling requests so we have added apivoid.com, a 
+      paid version API access to ipvoid to know your ip. 
+
+Query Limits
+~~~~~~~~~~~~
+
++---------------+--------------------+-------------------------------------------------------------------------------------+
+| Service       | Query Limits       | More Info                                                                           |
++===============+====================+=====================================================================================+
+| Censys.io     | 120/5 minutes      | `Censys Acct. <https://censys.io/account>`__                                        |
++---------------+--------------------+-------------------------------------------------------------------------------------+
+| Virustotal    | 4/minute           | `Virustotal API Doc. <https://www.virustotal.com/en/documentation/public-api/>`__   |
++---------------+--------------------+-------------------------------------------------------------------------------------+
+| AbuseIPDB     | 2500/month         | `AbuseIPDB FAQ <http://www.abuseipdb.com/faq.html>`__                               |
++---------------+--------------------+-------------------------------------------------------------------------------------+
+| IPVoid        | \-                 |                                                                                     |
++---------------+--------------------+-------------------------------------------------------------------------------------+
+| Shodan        | \-                 |                                                                                     |
++---------------+--------------------+-------------------------------------------------------------------------------------+
+| \-----------  | \----------------  | \-----------                                                                        |
++---------------+--------------------+-------------------------------------------------------------------------------------+
+
+Installation
+---------------
+
+The script depends on some system libraries. Currently ``traceroute`` uses
+operating system command ``traceroute`` on Linux and ``tracert`` on
+Windows.
+
+Ping function is based on a pure python ping implementation using raw
+socket and you must have root (on Linux) or Admin (on Windows) privileges to run
+
+::
+
+    # Install package and dependencies
+    pip install know_your_ip
+
+    # On Ubuntu Linux (if traceroute command not installed)
+    sudo apt-get install traceroute 
+
+Note: If you use anaconda on Windows, it is best to install Shapely via:
+
+::
+
+    conda install -c scitools shapely 
+
+Getting KYIP Ready For Use
+----------------------------
+
+To use the software, you need to take care of three things. You need to fill out
+the API keys in the config file, have a copy of MaxMind db if you want to use MaxMind,
+and pick out the columns you want in the columns.txt file:
+
+-  In the config file (default: ``know_your_ip.cfg``), there are
+   settings grouped by function.
+-  For Maxmind API, the script expects a copy of the database to be in
+   the folder specify by ``dbpath`` in the config file. To download the
+   database, go `here <http://dev.maxmind.com/geoip/geoip2/geolite2/>`__
+-  In the columns file (default: ``columns.txt``), there are the data
+   columns to be output by the script. We may have more than one columns
+   file but only one will be use by setting the ``columns`` variable in
+   ``output`` section.
+-  One more thing re. MaxMind--- you can comment out line 118 and 119 in 
+   `know_your_ip.py` if you don't have a userid or API Key as 
+   Maxmind is also available for free. (see `issue <https://github.com/themains/know_your_ip/issues/1>`__)
+
+Configuration File
+~~~~~~~~~~~~~~~~~~~
+
+Most of functions make calls to different public REST APIs and hence require an API key and/or username.
+You can register to get the API keys at the following URLs:
+
+    * `GeoNames <http://www.geonames.org/login>`__
+    * `AbuseIPDB <https://www.abuseipdb.com/register>`__
+    * `Censys <https://censys.io/register>`__
+    * `Shodan <https://account.shodan.io/registe>`__
+    * `VirusTotal <https://www.virustotal.com/en/documentation/virustotal-community/>`__
+
+    See `this example know_your_ip.cfg </know_your_ip/know_your_ip.cfg>`__
+
+    We can also select the data columns which will be outputted to the CSV file in the text file.
+    To take out that column from the output file, add ``#`` at the start of line in the text file ``columns.txt``.
+
+    See `this example columns.txt <know_your_ip/columns.txt>`__
+
+
+Using KYIP
+------------
+
+From the command line
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    usage: know_your_ip [-h] [-f FILE] [-c CONFIG] [-o OUTPUT] [-n MAX_CONN]
+                        [--from FROM_ROW] [--to TO] [-v] [--no-header]
+                        [ip [ip ...]]
+
+    Know Your IP
+
+    positional arguments:
+    ip                    IP Address(es)
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -f FILE, --file FILE  List of IP addresses file
+    -c CONFIG, --config CONFIG
+                            Configuration file
+    -o OUTPUT, --output OUTPUT
+                            Output CSV file name
+    -n MAX_CONN, --max-conn MAX_CONN
+                            Max concurrent connections
+    --from FROM_ROW       From row number
+    --to TO               To row number
+    -v, --verbose         Verbose mode
+    --no-header           Output without header at the first row
+
+::
+
+    know_your_ip -file input.csv
+
+As an External Library
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Please also look at `example.py <know_your_ip/examples/example.py>`__ or the jupyter notebook 
+`example.ipynb <know_your_ip/examples/example.ipynb>`__.
+
+As an External Library with Pandas DataFrame
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    import pandas as pd
+    from know_your_ip import load_config, query_ip
+
+    df = pd.read_csv('know_your_ip/examples/input.csv', header=None)
+
+    args = load_config('know_your_ip/know_your_ip.cfg')
+
+    odf = df[0].apply(lambda c: pd.Series(query_ip(args, c)))
+
+    odf.to_csv('output.csv', index=False)
+
+Documentation
+-------------
+
+For more information, please see `project documentation <http://know-your-ip.readthedocs.io/en/latest/>`__.
+
+Authors
+----------
+
+Suriyan Laohaprapanon and Gaurav Sood
+
+Contributor Code of Conduct
+---------------------------------
+
+The project welcomes contributions from everyone! In fact, it depends on
+it. To maintain this welcoming atmosphere, and to collaborate in a fun
+and productive way, we expect contributors to the project to abide by
+the `Contributor Code of
+Conduct <http://contributor-covenant.org/version/1/0/0/>`__.
+
+License
+----------
+
+The package is released under the `MIT
+License <https://opensource.org/licenses/MIT>`__.
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+pydomains,https://github.com/themains/pydomains,Get the kind of content hosted by a domain based on the domain name,Jupyter Notebook,4,5,0,"PyDomains: Classifying the Content of Domains
+------------------------------------------------
+
+.. image:: https://travis-ci.org/themains/pydomains.svg?branch=master
+    :target: https://travis-ci.org/themains/pydomains
+.. image:: https://ci.appveyor.com/api/projects/status/qfvbu8h99ymtw2ub?svg=true
+    :target: https://ci.appveyor.com/project/themains/pydomains
+.. image:: https://img.shields.io/pypi/v/pydomains.svg
+    :target: https://pypi.python.org/pypi/pydomains
+.. image:: https://readthedocs.org/projects/pydomains/badge/?version=latest
+    :target: http://pydomains.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+.. image:: https://pepy.tech/badge/pydomains
+    :target: https://pepy.tech/project/pydomains
+
+
+
+This repository is no longer actively maintained. Check out: https://github.com/themains/piedomains
+---------------
+
+The package provides two broad ways of learning about the kind of content hosted
+on a domain. First, it provides convenient access to curated lists of domain content
+like the Shallalist, DMOZ, PhishTank, and such. Second, it exposes models built on top of
+these large labeled datasets; the models estimate the relationship between sequence of
+characters in the domain name and the kind of content hosted by the domain.
+
+Quick Start
+------------
+
+::
+
+    import pandas as pd
+    from pydomains import *
+
+    # Get help
+    help(dmoz_cat)
+
+    # Load data
+    df = pd.read_csv('./pydomains/examples/input-header.csv')
+
+    #  df
+    #       label                                url
+    #   0   test1                        topshop.com
+    #   1   test2                   beyondrelief.com
+
+    # Get the Content Category from DMOZ, phishtank
+    df_dmoz  = dmoz_cat(df, domain_names = 'url')
+    df_phish = phish_cat(df, domain_names = 'url')
+
+    # Predicted category from shallalist, toulouse
+    df_shalla   = pred_shalla(df, domain_names = 'url')
+    df_toulouse = pred_toulouse(df, domain_names = 'url')
+
+
+Installation
+--------------
+
+Installation is as easy as typing in:
+
+::
+
+    pip install pydomains
+
+API
+~~~~~~~~~~
+
+1. **dmoz\_cat**, **shalla\_cat**, and **phish\_cat**: When the domain
+   is in the DMOZ, Shallalist, and Phishtank data, the functions give the
+   category of the domain according to the respective list. (Phishtank just
+   gives whether or not the domain has been implicated in phishing.) Otherwise,
+   the function returns an empty string.
+
+   -  **Arguments:**
+
+      -  ``df``: pandas dataframe. No default.
+      -  ``domain_names``: column with the domain names/URLs.
+         Default is ``domain_names``
+      -  ``year``. Specify the year from which you want to use the data.
+         Currently only DMOZ data from 2016, and Shallalist and Phishtank
+         data from 2017 is available.
+      -  ``latest``. Boolean. Default is ``False``. If ``True``, the
+         function checks if a local file exists and if it exists, if the
+         local file is the latest. If it isn't, it downloads the latest
+         file from the GitHub link and overwrites the local file.
+
+   -  **Functionality:**
+
+      -  converts domain name to lower case, strips ``http://``.
+      -  Looks for ``dmoz_YYYY.csv``, ``shalla_YYYY.csv``, or
+         ``phish_YYYY.csv`` respectively in the local folder. If it
+         doesn't find it, it downloads the latest DMOZ, Shallalist, or
+         Phishtank file from
+         `pydomains/data/dmoz_YYYY.csv.bz2 <pydomains/data/dmoz_YYYY.csv.bz2>`__,
+         `pydomains/data/shalla_YYYY.csv.bz2 <pydomains/data/shalla_YYYY.csv.bz2>`__,
+         or
+         `pydomains/data/phish_YYYY.csv.bz2 <pydomains/data/phish_YYYY.csv.bz2>`__\ respectively.
+      -  If the ``latest`` flag is planted, it checks if the
+         local file is older than the remote file. If it is,
+         it overwrites the local file with the newer remote file.
+
+   -  **Output:**
+
+      -  Appends the category to the CSV. By default it creates a column
+         (dmoz\_year\_cat or shalla\_year\_cat or phish\_year\_cat).
+      -  If no match is found, it returns nothing.
+      -  DMOZ sometimes has multiple categories per domain. The
+         categories are appended together with a semi-colon.
+
+   -  **Examples:**
+
+      ::
+
+          import pandas as pd
+
+          df = pd.DataFrame([{'domain_names': 'http://www.google.com'}])
+
+          dmoz_cat(df)
+          shalla_cat(df)
+          phish_cat(df)
+
+2. **pred\_shalla**: We use data from Shallalist to train a
+   `LSTM model <pydomains/models/shalla_pred_2017_lstm.ipynb>`__. The function
+   uses the trained model to predict the category of the domain based on
+   the domain name.
+
+   -  **Arguments:**
+
+      -  ``df``: pandas dataframe. No default.
+      -  ``domain_names``: column with the domain names/URLs.
+         Default is ``domain_names``
+      -  ``year``. Year of the model. Default is 2017. Currently only
+         a model based on data from 2017 is available.
+      -  ``latest``. Boolean. Default is ``False``. If ``True``, the
+         function checks if a local model file exists and if it exists, is it
+         older than what is on the website. If it isn't, it downloads the latest
+         file from the GitHub link and overwrites the local file.
+
+   -  **Functionality:**
+
+      -  converts domain name to lower case, strips ``http://``.
+      -  Uses the model to predict the probability of content being from
+         various categories.
+
+   -  **Output**
+
+      -  Appends a column carrying the label of the category with the
+         highest probability (``pred_shalla_year_lab``) and a series of
+         columns with probabilities for each category
+         (``pred_shalla_year_prob_catname``).
+
+   -  **Examples:**
+
+      ::
+
+          pred_shalla(df)
+
+3. **pred\_toulouse**: We use data from http://dsi.ut-capitole.fr/blacklists/ to
+   train a `LSTM model <pydomains/models/toulouse_pred_2017_lstm.ipynb>`__ that predicts
+   the category of content hosted by the domain. The function uses the trained
+   model to predict the category of the domain based on the domain name.
+
+   -  **Arguments:**
+
+      -  ``df``: pandas dataframe. No default.
+      -  ``domain_names``: column with the domain names/URLs.
+         Default is ``domain_names``
+      -  ``year``. Year of the model. Default is 2017. Currently only
+         a model based on data from 2017 is available.
+      -  ``latest``. Boolean. Default is ``False``. If ``True``, the
+         function checks if a local model file exists and if it exists, is it
+         older than what is on the website. If it isn't, it downloads the latest
+         file from the GitHub link and overwrites the local file.
+
+   -  **Functionality:**
+
+      -  converts domain name to lower case, strips ``http://``.
+      -  Uses the model to predict the probability of it being a domain
+         implicated in distributing malware.
+
+   -  **Output:**
+
+      -  Appends a column carrying the label of the category with the
+         highest probability (``pred_toulouse_year_lab``) and a series of
+         columns with probabilities for each category
+         (``pred_toulouse_year_prob_catname``).
+
+   - **Examples:**
+
+      ::
+
+          pred_malware(df)
+
+4. **pred\_phish**: Given the importance, we devote special care to try
+   to predict domains involved in phishing well. To do that, we use data
+   from `PhishTank <https://www.phishtank.com/>`__ and combine it with
+   data from http://s3.amazonaws.com/alexa-static/top-1m.csv.zip, and train a
+   `LSTM model <pydomains/models/phish_pred_2017_lstm_rf_svc.ipynb>`__. The function gives the
+   predicted probability based on the LSTM model.
+
+   -  **Arguments:**
+
+      -  ``df``: pandas dataframe. No default.
+      -  ``domain_names``: column with the domain names/URLs.
+         Default is ``domain_names``
+      -  ``year``. Year of the model. Default is 2017. Currently only
+         a model based on data from 2017 is available.
+      -  ``latest``. Boolean. Default is ``False``. If ``True``, the
+         function checks if a local model file exists and if it exists, is it
+         older than what is on the website. If it isn't, it downloads the latest
+         file from the GitHub link and overwrites the local file.
+
+   -  **Functionality:**
+
+      -  converts domain name to lower case, strips ``http://``.
+      -  Uses the model to predict the probability of it being a domain
+         implicated in phishing.
+
+   -  **Output:**
+
+      -  Appends column `pred_phish_year_lab` which contains the most probable
+         label, and a column indicating the probability that the domain
+         is involved in distributing malware (`pred_phish_year_prob`).
+
+   -  **Examples:**
+
+      ::
+
+          pred_phish(df)
+
+5. **pred\_malware**: Once again, given the importance of flagging domains
+   that carry malware, we again devote extra care to try to predict domains
+   involved in distributing malware well. We combine data on malware
+   domains http://mirror1.malwaredomains.com/ with data from
+   http://s3.amazonaws.com/alexa-static/top-1m.csv.zip, and train a
+   `LSTM model <pydomains/models/malware_pred_2017_lstm_rf_svc.ipynb>`__. The
+   function gives the predicted probability based on the LSTM model.
+
+   -  **Arguments:**
+
+      -  ``df``: pandas dataframe. No default.
+      -  ``domain_names``: column with the domain names/URLs.
+         Default is ``domain_names``
+      -  ``year``. Year of the model. Default is 2017. Currently only
+         a model based on data from 2017 is available.
+      -  ``latest``. Boolean. Default is ``False``. If ``True``, the
+         function checks if a local model file exists and if it exists, is it
+         older than what is on the website. If it isn't, it downloads the latest
+         file from the GitHub link and overwrites the local file.
+
+   -  **Functionality:**
+
+      -  converts domain name to lower case, strips ``http://``.
+      -  Uses the model to predict the probability of it being a domain
+         implicated in distributing malware.
+
+   -  **Output:**
+
+      -  Appends column `pred_malware_year_lab` and a column indicating the
+         probability that the domain is involved in distributing malware
+         (`pred_malware_year_prob`).
+
+   - **Examples:**
+
+      ::
+
+          pred_malware(df)
+
+Using pydomains
+~~~~~~~~~~~~~~~~
+
+::
+
+    >>> import pandas as pd
+    >>> from pydomains import *
+    Using TensorFlow backend.
+
+    >>> # Get help of the function
+    ... help(dmoz_cat)
+    Help on function dmoz_cat in module pydomains.dmoz_cat:
+
+    dmoz_cat(df, domain_names='domain_names', year=2016, latest=False)
+        Appends DMOZ domain categories to the DataFrame.
+
+        The function extracts the domain name along with the subdomain
+        from the specified column and appends the category (dmoz_cat)
+        to the DataFrame. If DMOZ file is not available locally or
+        latest is set to True, it downloads the file. The function
+        looks for category of the domain name in the DMOZ file
+        for each domain. When no match is found, it returns an
+        empty string.
+
+        Args:
+            df (:obj:`DataFrame`): Pandas DataFrame. No default value.
+            domain_names (str): Column name of the domain in DataFrame.
+                Default in `domain_names`.
+            year (int): DMOZ data year. Only 2016 data is available.
+                Default is 2016.
+            latest (Boolean): Whether or not to download latest
+                data available from GitHub. Default is False.
+
+        Returns:
+            DataFrame: Pandas DataFrame with two additional columns:
+                'dmoz_year_domain' and 'dmoz_year_cat'
+
+
+    >>> # Load an example input with columns header
+    ... df = pd.read_csv('./pydomains/examples/input-header.csv')
+
+    >>> df
+        label                                url
+    0   test1                        topshop.com
+    1   test2                   beyondrelief.com
+    2   test3                golf-tours.com/test
+    3   test4                    thegayhotel.com
+    4   test5  https://zonasequravlabcp.com/bcp/
+    5   test6                http://privatix.xyz
+    6   test7              adultfriendfinder.com
+    7   test8            giftregistrylocator.com
+    8   test9                 bangbrosonline.com
+    9  test10                scotland-info.co.uk
+
+    >>> # Get the Content Category from DMOZ
+    ... df = dmoz_cat(df, domain_names='url')
+    Loading DMOZ data file...
+
+    >>> df
+        label                                url         dmoz_2016_domain  \
+    0   test1                        topshop.com              topshop.com
+    1   test2                   beyondrelief.com         beyondrelief.com
+    2   test3                golf-tours.com/test           golf-tours.com
+    3   test4                    thegayhotel.com          thegayhotel.com
+    4   test5  https://zonasequravlabcp.com/bcp/     zonasequravlabcp.com
+    5   test6                http://privatix.xyz             privatix.xyz
+    6   test7              adultfriendfinder.com    adultfriendfinder.com
+    7   test8            giftregistrylocator.com  giftregistrylocator.com
+    8   test9                 bangbrosonline.com       bangbrosonline.com
+    9  test10                scotland-info.co.uk      scotland-info.co.uk
+
+                                        dmoz_2016_cat
+    0  Top/Regional/Europe/United_Kingdom/Business_an...
+    1                                                NaN
+    2                                                NaN
+    3                                                NaN
+    4                                                NaN
+    5                                                NaN
+    6                                                NaN
+    7                                                NaN
+    8                                                NaN
+    9  Top/Regional/Europe/United_Kingdom/Scotland/Tr...
+    >>> # Predict Content Category Using the Toulouse Model
+    ... df = pred_toulouse(df, domain_names='url')
+    Loading Toulouse model, vocab and names data file...
+
+    >>> df
+        label                                url         dmoz_2016_domain  \
+    0   test1                        topshop.com              topshop.com
+    1   test2                   beyondrelief.com         beyondrelief.com
+    2   test3                golf-tours.com/test           golf-tours.com
+    3   test4                    thegayhotel.com          thegayhotel.com
+    4   test5  https://zonasequravlabcp.com/bcp/     zonasequravlabcp.com
+    5   test6                http://privatix.xyz             privatix.xyz
+    6   test7              adultfriendfinder.com    adultfriendfinder.com
+    7   test8            giftregistrylocator.com  giftregistrylocator.com
+    8   test9                 bangbrosonline.com       bangbrosonline.com
+    9  test10                scotland-info.co.uk      scotland-info.co.uk
+
+                                        dmoz_2016_cat  \
+    0  Top/Regional/Europe/United_Kingdom/Business_an...
+    1                                                NaN
+    2                                                NaN
+    3                                                NaN
+    4                                                NaN
+    5                                                NaN
+    6                                                NaN
+    7                                                NaN
+    8                                                NaN
+    9  Top/Regional/Europe/United_Kingdom/Scotland/Tr...
+
+    pred_toulouse_2017_domain pred_toulouse_2017_lab  \
+    0               topshop.com               shopping
+    1          beyondrelief.com                  adult
+    2            golf-tours.com               shopping
+    3           thegayhotel.com                  adult
+    4      zonasequravlabcp.com               phishing
+    5              privatix.xyz                  adult
+    6     adultfriendfinder.com                  adult
+    7   giftregistrylocator.com               shopping
+    8        bangbrosonline.com                  adult
+    9       scotland-info.co.uk               shopping
+
+    pred_toulouse_2017_prob_adult  pred_toulouse_2017_prob_audio-video  \
+    0                       0.133953                             0.003793
+    1                       0.521590                             0.016359
+    2                       0.186083                             0.008208
+    3                       0.971451                             0.001080
+    4                       0.065503                             0.001063
+    5                       0.986328                             0.002241
+    6                       0.939441                             0.000211
+    7                       0.014645                             0.000570
+    8                       0.945490                             0.004017
+    9                       0.256270                             0.003745
+
+    pred_toulouse_2017_prob_bank  pred_toulouse_2017_prob_gambling  \
+    0                  1.161209e-04                      2.911613e-04
+    1                  3.912278e-03                      6.484169e-03
+    2                  1.783388e-03                      8.022175e-04
+    3                  8.920387e-05                      6.256429e-05
+    4                  6.226773e-04                      1.073759e-04
+    5                  6.823016e-07                      1.969112e-06
+    6                  1.742063e-07                      6.485808e-08
+    7                  3.973934e-04                      1.019526e-05
+    8                  9.122109e-05                      1.142884e-04
+    9                  3.962536e-04                      4.977396e-04
+
+    pred_toulouse_2017_prob_games  pred_toulouse_2017_prob_malware  \
+    0                       0.002073                         0.003976
+    1                       0.022408                         0.018371
+    2                       0.013352                         0.006392
+    3                       0.000713                         0.000934
+    4                       0.012431                         0.077391
+    5                       0.001021                         0.004949
+    6                       0.000044                         0.000059
+    7                       0.004112                         0.016339
+    8                       0.002216                         0.000422
+    9                       0.014452                         0.006615
+
+    pred_toulouse_2017_prob_others  pred_toulouse_2017_prob_phishing  \
+    0                        0.014862                          0.112132
+    1                        0.046011                          0.172208
+    2                        0.021287                          0.060633
+    3                        0.005018                          0.017201
+    4                        0.031691                          0.416989
+    5                        0.003069                          0.002094
+    6                        0.001674                          0.058497
+    7                        0.015631                          0.131174
+    8                        0.017964                          0.012574
+    9                        0.057622                          0.111698
+
+    pred_toulouse_2017_prob_press  pred_toulouse_2017_prob_publicite  \
+    0                   8.404775e-04                           0.000761
+    1                   2.525988e-02                           0.002821
+    2                   1.853482e-02                           0.000990
+    3                   2.208834e-04                           0.000135
+    4                   2.796387e-03                           0.000284
+    5                   4.559151e-06                           0.000252
+    6                   1.133891e-07                           0.000007
+    7                   1.115335e-02                           0.000436
+    8                   5.098383e-04                           0.000785
+    9                   7.331154e-04                           0.000168
+
+    pred_toulouse_2017_prob_shopping
+    0                          0.727203
+    1                          0.164577
+    2                          0.681934
+    3                          0.003094
+    4                          0.391121
+    5                          0.000038
+    6                          0.000066
+    7                          0.805531
+    8                          0.015817
+    9                          0.547802
+
+Models
+~~~~~~~~~~~~~~~~
+
+For more information about the models, including the decisions we made around
+curtailing the number of categories, see `here <./pydomains/models/>`__
+
+For model performance and comparison to Random Forest and SVC models, see the
+relevant notebooks and `this folder with eps images of the ROC <./pydomains/models/roc>`__.
+We also checked if the probabilities were calibrated. We find LSTM to be pretty
+well calibrated. The notebooks are posted `here <./pydomains/models/calibration/>`__
+
+Underlying Data
+~~~~~~~~~~~~~~~~
+
+We use data from DMOZ, Shallalist, PhishTank, and a prominent Blacklist aggregator.
+For more details about how the underlying data, see `here <./pydomains/data/>`__
+
+Validation
+~~~~~~~~~~~~~~~~~
+
+We compare content categories according to the `TrustedSource API <https://www.trustedsource.org>`__
+with content category from Shallalist and the Shallalist model for all the unique domains in the
+comScore 2004 data:
+
+1. `comScore 2004 Trusted API results <http://dx.doi.org/10.7910/DVN/BPS1OK>`__
+
+2. `comScore 2004 categories from pydomains <./pydomains/app/comscore-2004.ipynb>`__
+
+3. `comparison between TrustedSource and Shallalist and shallalist model <./pydomains/app/comscore-2004-eval.ipynb>`__
+
+Application
+~~~~~~~~~~~~~
+
+We use the package to answer two questions:
+
+* Do poor people, minorities, and the less-well-educated visit sites that distribute malware or engage in phishing more frequently than their respective complementary groups---the better-off, the racial majority, the better educated?
+
+* How does consumption of pornography vary by education and age?
+
+See the `repository for the application <https://github.com/themains/domain_knowledge>`__.
+
+Paper
+~~~~~~~~~~~~~
+
+For more details about the performance and for citation, see `the paper <https://github.com/themains/domain_knowledge/tree/master/ms>`__.
+
+comScore Domain Data Categories
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To make it easier to learn browsing behavior of people, we obtained the type of content
+hosted by a domain using all the functions in pydomains for all the unique domains in all
+the comScore data from 2002 to 2016 (there are some missing years). We have posted the data
+`here <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DXSNFA>`__
+
+Notes and Caveats
+~~~~~~~~~~~~~~~~~~~
+
+-  The DMOZ categorization system at tier 1 is bad. The category names
+   are vague. They have a lot of subcategories that could easily belong
+   to other tier 1 categories. That means a) it would likely be hard to
+   classify well at tier 1 and b) not very valuable. So we choose not to
+   predict tier 1 DMOZ categories.
+
+-  The association between patterns in domain names and the kind of
+   content they host may change over time. It may change as new domains
+   come online and as older domains are repurposed. All this likely
+   happens slowly. But, to be careful, we add a ``year`` variable in our
+   functions. Each list and each model is for a particular year.
+
+-  Imputing the kind of content hosted by a domain may suggest to some
+   that domains carry only one kind of content. Many domains don't. And
+   even when they do, the quality varies immensely. (See more `here
+   <https://themains.github.io/index.html#domain_classifier>`__.) There is
+   much less heterogeneity at the URL level. And we plan to look into
+   predicting at URL level. See `TODO <TODO>`__ for our plans.
+
+-  There are a lot of categories where we do not expect domain names to
+   have any systematic patterns. Rather than make noisy predictions
+   using just the domain names (the data that our current set of
+   classifiers use), we plan to tackle this prediction task with
+   some additional data. See `TODO <TODO>`__ for our plans.
+
+Documentation
+-------------
+
+For more information, please see `project documentation <http://pydomains.readthedocs.io/en/latest/>`__.
+
+Authors
+~~~~~~~~
+
+Suriyan Laohaprapanon and Gaurav Sood
+
+Contributor Code of Conduct
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The project welcomes contributions from everyone! In fact, it depends on
+it. To maintain this welcoming atmosphere, and to collaborate in a fun
+and productive way, we expect contributors to the project to abide by
+the `Contributor Code of
+Conduct <http://contributor-covenant.org/version/1/0/0/>`__
+
+License
+~~~~~~~
+
+The package is released under the `MIT
+License <https://opensource.org/licenses/MIT>`__.
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+pwned,https://github.com/themains/pwned,How Often Are Americans' Accounts Breached?,TeX,8,0,0,"### Pwned: How Often Are Americans' Online Accounts Breached?
+
+We merge data from a large representative sample from YouGov (n = 5,000) with data from [Have I Been Pwned (HIBP)](https://haveibeenpwned.com) to estimate how often people's information is exposed. And how that varies by race, education, income, and age.
+
+We find that at least 82.8\% of Americans have had their accounts breached at least once. And that on average Americans' accounts have been breached at least thrice. Better educated, the middle-aged, women, and Whites and Blacks are more likely to have had their accounts breached than the complementary groups.
+
+#### Relationship Between Age and Number of Breaches
+
+<p align = ""center""><img src=""figs/age_pwned.png"" width=""500""></p>
+
+#### Relationship Between Race and Number of Breaches
+
+<p align = ""center""><img src=""figs/race_pwned.png"" width=""500""></p>
+
+#### Relationship Between Education and Number of Breaches
+
+<p align = ""center""><img src=""figs/educ_pwned.png"" width=""500""></p>
+
+#### Relationship Between Sex and Number of Breaches
+
+<p align = ""center""><img src=""figs/sex_pwned.png"" width=""500""></p>
+
+-----------
+
+### Data and Analysis
+
+* [Data](data/)
+    - [YG Profile Data (CSV)](data/YGOV1058_profile.csv)
+        - [YG Profile codebook (pdf)](data/Profile_codebook_ygov1058.pdf)
+    - [HIBP Data on the people (CSV)](data/YGOV1058_pwned.csv)
+        -  [HIBP v2 API (pdf)](data/hibp_v2_api.pdf)
+        -  [HIBP codebook (xlsx)](data/hibp_codebook.xlsx)
+    - [HIBP Data on Breaches (JSON)](data/breaches.json)
+    - [Current Population Survey Data (xlsx)](data/cps_2018.xlsx) and [CSV](data/cps_2018.csv)
+
+* [Analysis](scripts/)
+    - [Jupyter notebook](scripts/pwned.ipynb)
+    - [R script for fancy tables, plots, and replication](scripts/pwned_replication_plus_analyses.R)
+    - [R Script for comparing YG to CPS](scripts/yg_cps.R)
+
+* [Figs](figs/)
+
+* [Tables](tabs/)
+
+* [ms: pdf, bib, and tex](ms/)
+
+### Authors
+
+Ken Cor and Gaurav Sood
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+mturk_turk,https://github.com/themains/mturk_turk,Bad IPs: Analyzing Fraudulent Responses on M-Turk Surveys,Jupyter Notebook,1,0,0,"## Survey Data on M-Turk
+
+In recent weeks, serious concerns have been raised about survey data collected on MTurk. People are concerned that a non-trivial proportion of respondents are not serious. And that at least some of them use bots to assist them with their answers. (This last bit is ironic: bots posing as humans on a platform whose name harks a scam where humans posed as bots.) Much of the evidence mustered about the concern is circumstantial, for instance, same responses to open-ended questions.
+
+In response to the concern, I analyzed some recently collected data on MTurk. I focused on answering two basic questions: 
+
+1. Even when we limit M-Turk HIT to US respondents only, how many of the IPs from which people fill out surveys are from non-US countries?  
+
+2.  How many of the responses are submitted from blacklisted IPs?
+
+To answer the questions, I leveraged [know your IP](https://github.com/themains/know_your_ip), a software that I had co-developed for another purpose: quickly getting metadata on problematic IPs when analyzing cybersecurity threats. The software provides simple hooks to multiple services that impute the lat/long of an IP, and let you know if an IP is part of one of many blacklists.
+
+Of the 2,000 responses, Qualtrics could only get IPs for 1991. (I consider rest of 9 suspicious.) Of the 1991, 1886 are in the US. Of the 105 outside the US, 42 are from Venezuela and 17 from India. My sense is that these 105 respondents created MTurk accounts using US data---they have US credit cards or were once in the US---but are actually residents of another country. 
+
+More shockingly, of the 1991 respondents, 321 are from blacklisted IPs. In all, there are 370 respondents who are either outside the US or have blacklisted IPs. Add to this 9 whose IPs couldn't be recorded and 67 duplicate IPs. In all, about 19.3% of the responses can't be trusted.
+
+Suggestions for collecting and analyzing data from M-Turk surveys: 
+
+1. Use Qualtrics country filter that uses its IP to lat/long to filter out respondents so that you don't get data from these respondents in the first place
+2. Use [know your IP](https://github.com/themains/know_your_ip) to filter out other suspicious responses. 
+
+And use checks recommended by others.
+
+## Script and Data
+
+* [Data](data/ip_metadata.csv)
+* [Script](scripts/mturk.ipynb)
+
+## Paper
+
+For paper that exploits additional data, see [here (pdf)](http://www.gsood.com/research/papers/turk.pdf).
+
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+domain_knowledge,https://github.com/themains/domain_knowledge,Domain Knowledge: Learning with pydomains,Jupyter Notebook,3,2,0,"## Domain Knowledge: Learning with Pydomains
+
+You are what you browse. More or less. We jest, just a bit.
+
+To help make it easier to learn from browsing data, we developed a Python package, [pydomains](https://github.com/themains/pydomains). The package provides multiple ways to infer the kind of content hosted by a domain. To illustrate its power (and also the general workflow), we use it to answer two important questions:
+
+1. Do poor people, minorities, and the less-well-educated visit sites that distribute malware or engage in phishing more frequently than their respective complementary groups---the better-off, the racial majority, the better educated?
+
+2. How does consumption of pornography vary by education and age?
+
+### Data
+
+* Browsing data: comScore data are proprietary so we cannot release the data. Codebook translating numerical codes to semantic labels for demographic data is posted [here](comscore_demographics_codebook.pdf).
+
+* [Pydomains data for comScore](https://doi.org/10.7910/DVN/DXSNFA)
+    - [Software](https://github.com/themains/pydomains)
+
+* [Trusted API data for comScore 2004](https://doi.org/10.7910/DVN/BPS1OK)
+    - [Script](https://github.com/themains/trusted)
+
+### Scripts
+
+1. [Malware by Age, Race, Education](scripts/bad_domains.ipynb)
+2. [Pornography Consumption by Age and Education for comScore 2004](scripts/porn.ipynb)
+    - We pick 2004 because we have data from Trusted Source API for 2004 also. We plan to present some supplementary data and analysis that illustrate some of the issues with comScore data but much of it is beyond the scope of this illustration and we may do it separately.
+
+### Outputs
+
+* [Figures](figs/)
+* [Manuscript](ms/)
+
+### Authors
+
+Suriyan Laohaprapanon and Gaurav Sood
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+private_blacklight,https://github.com/themains/private_blacklight,Privacy Online and Digital Divide on Online Privacy,Jupyter Notebook,1,0,0,"## Shedding Blacklight on Online Privacy
+
+We exploit passively collected browsing data from comScore along with https://themarkup.org/blacklight to estimate whether the websites visited by poorer people and less educated people tend to visit websites with lower privacy standards than the better-off and better-educated people. 
+
+We also use data from https://whotracks.me/ to augment our analyses.
+
+### Data
+
+* [YG data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VIV4TS)
+* [Blacklight data on YG Domains](https://doi.org/10.7910/DVN/3N7TDZ)
+
+### Scripts
+
+* [Scrape Blacklight Data Using Scrapy](https://github.com/themains/private_blacklight/tree/master/scripts/privacy_scraper)
+* [Scrape Whotracksme Data](https://github.com/themains/private_blacklight/blob/master/scripts/get_whotracksme_privacy_data.py)
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+piedomains,https://github.com/themains/piedomains,"Classify the kind of content hosted by the domain using the domain name, and text and screenshot of the homepage.",Jupyter Notebook,13,2,2,"===========================================================================================
+piedomains: predict the kind of content hosted by a domain based on domain name and content
+===========================================================================================
+
+.. image:: https://github.com/themains/piedomains/actions/workflows/python-package.yml/badge.svg
+    :target: https://github.com/themains/piedomains/actions/workflows/python-package.yml
+.. image:: https://img.shields.io/pypi/v/piedomains.svg
+    :target: https://pypi.python.org/pypi/piedomains
+.. image:: https://readthedocs.org/projects/piedomains/badge/?version=latest
+    :target: http://piedomains.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+.. image:: https://static.pepy.tech/badge/piedomains
+    :target: https://pepy.tech/project/piedomains
+
+The package infers the kind of content hosted by a domain using the domain name, the textual content, and the screenshot of the homepage.
+
+We use domain category labels from `Shallalist  <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZXTQ7V>`__ and build our own training dataset by scraping and taking screenshots of the homepage. The final dataset used to train the model is posted on the `Harvard Dataverse <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZXTQ7V>`__.  Python notebooks used to build the models can be found `here <https://github.com/themains/piedomains/tree/55cd5ea68ccec58ab2152c5f1d6fb9e6cf5df363/piedomains/notebooks>`__ and the model files can be found `here <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YHWCDC>`__
+
+Installation
+--------------
+We strongly recommend installing `piedomains` inside a Python virtual environment
+(see `venv documentation <https://docs.python.org/3/library/venv.html#creating-virtual-environments>`__)
+
+::
+
+    pip install piedomains
+
+General API
+-----------
+1. **domain.pred_shalla_cat_with_text(input)**
+
+ - What it does:
+
+  - Predicts the kind of content hosted by a domain based on the domain name and the HTML of the homepage. 
+  - The function can use locally stored HTML files or fetch fresh HTML files. 
+  - If you specify a local folder, the function will look for HTML files corresponding to the domain. 
+  - The HTML files must be stored as `domainname.html`. 
+  - The function returns a pandas dataframe with predicted labels and corresponding probabilities.
+
+ - Inputs:
+
+  - `input`: list of domains. Either `input` or `html_path` must be specified.
+  - `html_path`: path to the folder where the HTMLs are stored.  Either `input` or `html_path` must be specified. 
+  - `latest`: use the latest model. The default is `True.`
+  - Note: The function will by default look for a `html` folder on the same level as model files.
+
+ - Output:
+
+  - Returns a pandas dataframe with the predicted labels and probabilities
+
+ - Sample usage:
+   ::
+     
+     from piedomains import domain
+     domains = [
+         ""forbes.com"",
+         ""xvideos.com"",
+         ""last.fm"",
+         ""facebook.com"",
+         ""bellesa.co"",
+         ""marketwatch.com""
+     ]
+     # with only domains
+     result = domain.pred_shalla_cat_with_text(domains)
+     # with html path where htmls are stored (offline mode)
+     result = domain.pred_shalla_cat_with_text(html_path=""path/to/htmls"")
+     # with domains and html path, html_path will be used to store htmls
+     result = domain.pred_shalla_cat_with_text(domains, html_path=""path/to/htmls"")
+     print(result)
+ - Sample output:
+   ::
+
+                 domain  text_label  text_prob  \
+     0      xvideos.com        porn   0.918919   
+     1  marketwatch.com     finance   0.627119   
+     2       forbes.com        news   0.575000   
+     3       bellesa.co        porn   0.962932   
+     4     facebook.com  recreation   0.200815   
+     5          last.fm       music   0.229545   
+
+                                       text_domain_probs  used_domain_text  \
+     0  {'adv': 0.001249639527059502, 'aggressive': 9....              True   
+     1  {'adv': 0.001249639527059502, 'aggressive': 9....              True   
+     2  {'adv': 0.010590500641848523, 'aggressive': 0....              True   
+     3  {'adv': 0.00021545223423966907, 'aggressive': ...              True   
+     4  {'adv': 0.006381039197812215, 'aggressive': 0....              True   
+     5  {'adv': 0.002181818181818182, 'aggressive': 0....              True   
+
+                                           extracted_text  
+     0  xvideos furry ass history mature rough redhead...  
+     1  marketwatch gold stocks video chrome economy v...  
+     2  forbes featured leadership watch money breakin...  
+     3  bellesa audio vixen sensual passionate orgy ki...  
+     4    facebook watch messenger portal bulletin oculus  
+     5  last twitter music reset company back merchand...  
+
+2. **domain.pred_shalla_cat_with_images(input)**
+
+ - What it does:
+
+  - Predicts the kind of content hosted by a domain based on screenshot of the homepage.  
+  - The function can use locally stored screenshots files or fetch fresh screenshots of the homepage.  
+  - If you specify a local folder, the function will look for jpegs corresponding to the domain. 
+  - The screenshots must be stored as `domainname.jpg`. 
+  - The function returns a pandas dataframe with label and corresponding probabilities.
+
+ - Inputs:
+
+  - `input`: list of domains. Either `input` or `image_path` must be specified.
+  - `image_path`: path to the folder where the screenshots are stored.  Either `input` or `image_path` must be specified. 
+  - `latest`: use the latest model. Default is `True.`
+  - Note: The function will by default look for a `images`` folder on the same level as model files.
+
+ - Output:
+
+  - Returns panda dataframe with label and probabilities
+
+ - Sample usage:
+   ::
+     
+     from piedomains import domain
+     domains = [
+         ""forbes.com"",
+         ""xvideos.com"",
+         ""last.fm"",
+         ""facebook.com"",
+         ""bellesa.co"",
+         ""marketwatch.com""
+     ]
+     # with only domains
+     result = domain.pred_shalla_cat_with_images(domains)
+     # with image path where images are stored (offline mode)
+     result = domain.pred_shalla_cat_with_images(image_path=""path/to/images"")
+     # with domains and image path, image_path will be used to store images
+     result = domain.pred_shalla_cat_with_images(domains, image_path=""path/to/images"")
+     print(result)
+ - Sample output:
+   ::
+
+                 domain image_label  image_prob  \
+     0       bellesa.co    shopping    0.366663   
+     1     facebook.com        porn    0.284601   
+     2  marketwatch.com  recreation    0.367953   
+     3      xvideos.com        porn    0.916550   
+     4       forbes.com  recreation    0.415165   
+     5          last.fm    shopping    0.303097   
+
+                                       image_domain_probs  used_domain_screenshot  
+     0  {'adv': 0.0009261096129193902, 'aggressive': 3...                    True  
+     1  {'adv': 0.030470917001366615, 'aggressive': 0....                    True  
+     2  {'adv': 0.006861348636448383, 'aggressive': 0....                    True  
+     3  {'adv': 0.0004964823601767421, 'aggressive': 0...                    True  
+     4  {'adv': 0.0016061498317867517, 'aggressive': 8...                    True  
+     5  {'adv': 0.007956285960972309, 'aggressive': 0....                    True  
+
+3. **domain.pred_shalla_cat(input)**
+
+ - What it does:
+
+  - Predicts the kind of content hosted by a domain based on a screenshot of the homepage.  
+  - The function can use locally stored screenshots and HTMLs or fetch fresh data.  
+  - If you specify local folders, the function will look for jpegs corresponding to the domain. 
+  - The screenshots must be stored as `domainname.jpg`. 
+  - The HTML files must be stored as `domainname.html`. 
+  - The function returns a pandas dataframe with the predicted labels and corresponding probabilities.
+
+ - Inputs:
+
+  - `input`: list of domains. Either `input` or `html_path` must be specified.
+  - `html_path`: path to the folder where the screenshots are stored.  Either `input`, `image_path`, or `html_path` must be specified. 
+  - `image_path`: path to the folder where the screenshots are stored.  Either `input`, `image_path`, or `html_path` must be specified. 
+  - `latest`: use the latest model. Default is `True.`
+  - Note: The function will by default look for a `html` folder on the same level as model files.
+  - Note: The function will by default look for a `images` folder on the same level as model files.
+
+ - Output
+
+  - Returns panda dataframe with label and probabilities
+
+ - Sample usage:
+   ::
+     
+     from piedomains import domain
+     domains = [
+         ""forbes.com"",
+         ""xvideos.com"",
+         ""last.fm"",
+         ""facebook.com"",
+         ""bellesa.co"",
+         ""marketwatch.com""
+     ]
+     # with only domains
+     result = domain.pred_shalla_cat(domains)
+     # with html path where htmls are stored (offline mode)
+     result = domain.pred_shalla_cat(html_path=""path/to/htmls"")
+     # with image path where images are stored (offline mode)
+     result = domain.pred_shalla_cat(image_path=""path/to/images"")
+     print(result)
+
+ - Sample output:
+   ::
+
+                   domain  text_label  text_prob  \
+     0      xvideos.com        porn   0.918919   
+     1  marketwatch.com     finance   0.627119   
+     2       forbes.com        news   0.575000   
+     3       bellesa.co        porn   0.962932   
+     4     facebook.com  recreation   0.200815   
+     5          last.fm       music   0.229545   
+
+                                       text_domain_probs  used_domain_text  \
+     0  {'adv': 0.001249639527059502, 'aggressive': 9....              True   
+     1  {'adv': 0.001249639527059502, 'aggressive': 9....              True   
+     2  {'adv': 0.010590500641848523, 'aggressive': 0....              True   
+     3  {'adv': 0.00021545223423966907, 'aggressive': ...              True   
+     4  {'adv': 0.006381039197812215, 'aggressive': 0....              True   
+     5  {'adv': 0.002181818181818182, 'aggressive': 0....              True   
+
+                                           extracted_text image_label  image_prob  \
+     0  xvideos furry ass history mature rough redhead...        porn    0.916550   
+     1  marketwatch gold stocks video chrome economy v...  recreation    0.370665   
+     2  forbes featured leadership watch money breakin...  recreation    0.422517   
+     3  bellesa audio vixen sensual passionate orgy ki...        porn    0.409875   
+     4    facebook watch messenger portal bulletin oculus        porn    0.284601   
+     5  last twitter music reset company back merchand...    shopping    0.420788   
+
+                                       image_domain_probs  used_domain_screenshot  \
+     0  {'adv': 0.0004964823601767421, 'aggressive': 0...                    True   
+     1  {'adv': 0.007065971381962299, 'aggressive': 0....                    True   
+     2  {'adv': 0.0016623957781121135, 'aggressive': 7...                    True   
+     3  {'adv': 0.0008810096187517047, 'aggressive': 0...                    True   
+     4  {'adv': 0.030470917001366615, 'aggressive': 0....                    True   
+     5  {'adv': 0.01235155574977398, 'aggressive': 0.0...                    True   
+
+           label  label_prob                              combined_domain_probs  
+     0      porn    0.917735  {'adv': 0.0008730609436181221, 'aggressive': 0...  
+     1   finance    0.315346  {'adv': 0.004157805454510901, 'aggressive': 0....  
+     2      news    0.367533  {'adv': 0.006126448209980318, 'aggressive': 0....  
+     3      porn    0.686404  {'adv': 0.0005482309264956868, 'aggressive': 0...  
+     4      porn    0.223327  {'adv': 0.018425978099589416, 'aggressive': 0....  
+     5  shopping    0.232422  {'adv': 0.007266686965796081, 'aggressive': 0....  
+
+
+Authors
+-------
+Rajashekar Chintalapati and Gaurav Sood
+
+Contributor Code of Conduct
+---------------------------------
+The project welcomes contributions from everyone! In fact, it depends on
+it. To maintain this welcoming atmosphere, and to collaborate in a fun
+and productive way, we expect contributors to the project to abide by
+the `Contributor Code of Conduct <http://contributor-covenant.org/version/1/0/0/>`__.
+
+License
+----------
+The package is released under the `MIT License <https://opensource.org/licenses/MIT>`__.
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+password,https://github.com/themains/password,A password generator using an encoder-decoder model trained on ~881M passwords,Jupyter Notebook,41,1,0,"## Pass-Fail: Using a Password Generator to Improve Password Strength
+
+Despite most modern browsers providing password generator and management tools, many users do not pick long, randomly generated passwords. To build a tool that offers advice on a) strength of passwords (that goes beyond using password length) and b) how to make stronger passwords, we built an ML model. Using ~881M leaked passwords from various databases, we built a [character-level password generator](https://github.com/themains/password/blob/main/notebooks/03_tf_seq_to_seq_training_881M.ipynb) using an encoder-decoder model. (We also built a [separate model using a database of 18M passwords](https://github.com/themains/password/blob/main/notebooks/03_tf_seq_to_seq_tranining_18M.ipynb).) We then validate the model against the HaveIBeenPwned (HIBP) database. Of the roughly 10,000 model-generated 5-character-long passwords, 58% match a password in the HIBP database compared to .1% of the 10,000 randomly generated passwords. As a more stringent test, we estimated the HIBP match rate for model-generated passwords that are not in the training corpus. For passwords starting with 10 of the most common characters, the match rate is about 10%.
+
+We use the model to understand one of the correlates of a strong password---the starting character. In our data, the starting characters of passwords have a sharp skew, with about 30 characters covering about 83% of the passwords. And, understandably, passwords starting with more common characters can be guessed by the model more quickly (the correlation is 84% for five char. passwords on our data). This suggests that there is an opportunity to create passwords using less commonly used starting characters (see the distribution of first characters in our notebooks linked to above).
+
+Our model can also be used to estimate the strength of a password. Admittedly, the job is computationally heavy. And approximate inference based on, e.g., maximum percentage matched in the first 100 tries, may be useful. For illustration, [our generator](https://github.com/themains/password/blob/main/notebooks/03_tf_seq_to_seq_tranining_18M.ipynb) can recover the password 'Password1' in ~ 1000 tries when the search space for nine-character passwords with 95 tokens is in the quadrillions.
+
+Note: 
+
+1. We are aware that hackers can use the model to crack passwords, but we believe the computational cost of running the model for such inference is likely too high when compared to brute force or dictionary-based methods or methods that exploit common patterns in passwords.
+
+2. We are also aware that if lots of people use the model to start using uncommon patterns, e.g., $ as a starting character, then over time, these patterns become more common, upending the benefits of the model. Any product building off this should account for this point. The solution for this is plausibly to keep building models based on new data
+
+### Table of Contents
+
+* [Data](#data)
+* [Model](#model)
+* [Metrics](#metrics)
+* [Practical Validation](#validation)
+* [Password Embeddings](#embeddings)
+
+### Data
+
+We created the master password database by merging data from the following [leaked password databases](https://github.com/danielmiessler/SecLists/tree/master/Passwords/Leaked-Databases). (Note: We are aware that the bible is merely a collection of all the words in the bible---or so it seems---and have chosen to keep it as a dictionary.) You can find more details in this [notebook](notebooks/01_data.ipynb).
+
+```
+passwords_db/000webhost.txt      passwords_db/izmy.txt
+passwords_db/adobe100.txt        passwords_db/Lizard-Squad.txt
+passwords_db/Ashley-Madison.txt  passwords_db/md5decryptor-uk.txt
+passwords_db/bible.txt           passwords_db/muslimMatch.txt
+passwords_db/carders.cc.txt      passwords_db/myspace.txt
+passwords_db/comb.txt            passwords_db/NordVPN.txt
+passwords_db/elitehacker.txt     passwords_db/phpbb-cleaned-up.txt
+passwords_db/faithwriters.txt    passwords_db/porn-unknown.txt
+passwords_db/hak5.txt            passwords_db/rockyou.txt
+passwords_db/honeynet2.txt       passwords_db/singles.org.txt
+passwords_db/honeynet.txt        passwords_db/tuscl.txt
+passwords_db/hotmail.txt         passwords_db/youporn2012.txt
+```
+
+After merging the above, the total count came to 881623002 passwords (881 million passwords).
+
+We only consider passwords that are between 3 and 50 characters long. Only a tiny fraction of passwords are over 50 characters long. And the three-character lower limit eliminates many of the short words from `bible,` etc.
+
+### Model
+
+The vocabulary size is 95. 
+
+#### Data Setup
+
+Sequence to sequence is used to train Tensorflow GRU model.<br>
+For example: if the password is `12STEVEN` <br>
+then the input to the model is `12STEVE` <br>
+And the prediction label is `2STEVEN` <br>
+Data is split as follows: 95% for training, 2.5% for validation, 2.5% for test.<br>
+You can find more details on how the data is split in this [notebook](notebooks/01_data.ipynb).<br>
+Since loading all train data to memory requires more than 200+ GB RAM, we created tf records. (See this [notebook](notebooks/02_tf_records.ipynb) for the details.)
+
+Below is the GRU model that we used
+```
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+embedding_1 (Embedding)      multiple                  9216      
+_________________________________________________________________
+gru_1 (GRU)                  multiple                  271872    
+_________________________________________________________________
+dense_1 (Dense)              multiple                  24672     
+=================================================================
+Total params: 305,760
+Trainable params: 305,760
+Non-trainable params: 0
+_________________________________________________________________
+```
+We use a sequence-to-sequence model.
+
+### Metrics
+
+We used the [bleu](https://www.nltk.org/_modules/nltk/translate/bleu_score.html) score to measure the model performance. <br>
+Below are some examples - <br>
+**if all are equal**
+```python
+ref = [['a', 'b', 'c'], ['d','e'], ['f'], [' ']]
+hyp = [['a', 'b', 'c'], ['d','e'], ['f'], [' ']]
+corpus_bleu(ref, hyp, weights=[0.25])
+```
+output - `1.0` <br>
+**if some are equal**
+```python
+ref = [['a', 'b', 'c'], ['d','e'], ['f'], [' ']]
+hyp = [['a', 'b', 'f'], ['d','e'], ['f'], [' ']]
+corpus_bleu(ref, hyp, weights=[0.25])
+```
+output - `0.9621954581957615` <br>
+**if non are equal**
+```python
+ref = [['a', 'b', 'c'], ['d','e'], ['f'], [' ']]
+hyp = [['p', 'q', 'r'], ['s','t'], ['u'], ['w']]
+corpus_bleu(ref, hyp, weights=[0.25])
+```
+output - `0`<br>
+
+The bleu score on the test dataset is `0.02` <br>
+After training the model for ten epochs, the bleu score on the test dataset increased to `0.96`
+
+### Validation
+
+How quickly can we guess the password `Password1` (of length 9) when we feed `P` to the model? The model takes 1026 attempts to find the password (compared to 315 quadrillion attempts on average using random password generation with 95 tokens) 
+
+```
+1 - PANDOWCOM
+2 - Politim12
+3 - P1Z5Z36Q1
+4 - Phils#312
+5 - Peneme160
+6 - PaLiVasda
+7 - Panisabas
+8 - Pedrostin
+9 - PRESO514#
+10 - PersiaM80
+11 - PALOPER55
+12 - PAGAUNECI
+13 - Pom#2lu80
+14 - Papa62873
+15 - PONDBOOZZ
+16 - PecKhouse
+17 - Peec65alm
+18 - POODSONEK
+19 - PORNILLOS
+20 - Pinoyano7
+21 - Pamk30000
+22 - Padololin
+23 - PpA!2002C
+24 - Pgc716558
+25 - Pordot001
+...
+1024 - PENTONC13
+1025 - PURPLEJAV
+1026 - Password1
+Model took 1026 attempts to find password - Password1
+```
+
+Passwords starting with each char distribution is like below. Showing top 10 char distribution in ascending order. 
+```
+[('k', 0.030112092511078912),
+ ('t', 0.03019875298476047),
+ ('l', 0.03200024618607084),
+ ('d', 0.034974911596357544),
+ ('c', 0.03615092217770743),
+ ('b', 0.036440602438896755),
+ ('m', 0.04673549531688035),
+ ('a', 0.04689793719340077),
+ ('1', 0.04736622677456893),
+ ('s', 0.04979685375899136)]
+```
+As we can see, passwords most frequently start with `m`, followed by `s`, `0`, and so on. 
+
+In the table below, <br>
+`dist` - start character distribution across all passwords<br>
+`rand_pred_prob` - Percent of passwords found in [https://haveibeenpwned.com/](https://haveibeenpwned.com/)  when passwords are generated randomly. <br>
+`model_pred_prob` - Percent of passwords that were found in [https://haveibeenpwned.com/](https://haveibeenpwned.com/)  when passwords were generated using trained model. The model predictablility rate depends on start char distribution. If a start char is common, the model is able to predict more leaked passwords.  
+
+
+|	|char|	dist	|rand_pred_prob	|model_pred_prob|
+|---|--- |---       |---    |---    |
+|94	|m	|0.057332	|0.00	|0.77 |
+|93	|s	|0.057103	|0.00	|0.76 |
+|92	|0	|0.055492	|0.00	|0.90 |
+|91	|a	|0.049879	|0.00	|0.77 |
+|90	|1	|0.044963	|0.01	|0.71 |
+|89	|c	|0.042993	|0.02	|0.75 |
+|88	|b	|0.042367	|0.01	|0.79 |
+|87	|l	|0.037108	|0.00	|0.77 |
+|86	|j	|0.036371	|0.01	|0.71 |
+|85	|d	|0.034617	|0.01	|0.72 |
+|84	|t	|0.034498	|0.00	|0.69 |
+|83	|p	|0.033237	|0.00	|0.77 |
+|82	|k	|0.031070	|0.00	|0.72 |
+|81	|2	|0.028482	|0.00	|0.75 |
+|80	|r	|0.028280	|0.00	|0.71 |
+|79	|n	|0.023127	|0.00	|0.66 |
+|78	|g	|0.022110	|0.00	|0.69 |
+|77	|h	|0.021496	|0.00	|0.71 |
+|76	|f	|0.020230	|0.00	|0.67 |
+|75	|e	|0.019975	|0.00	|0.64 |
+|74	|i	|0.018939	|0.00	|0.59 |
+|73	|3	|0.015904	|0.00	|0.77 |
+|72	|4	|0.015702	|0.00	|0.80 |
+|71	|9	|0.015432	|0.00	|0.82 |
+|70	|5	|0.015039	|0.00	|0.79 |
+|69	|w	|0.013814	|0.00	|0.52 |
+|68	|8	|0.012629	|0.01	|0.78 |
+|67	|7	|0.012027	|0.00	|0.72 |
+|66	|6	|0.011991	|0.00	|0.70 |
+|65	|v	|0.010075	|0.00	|0.63 |
+|...	|...|	...	...	|...      |
+|29	|#	|0.000473	|0.00	|0.05 |
+|28	|$	|0.000462	|0.00	|0.09 |
+|27	|(	|0.000430	|0.00	|0.01 |
+|26	|.	|0.000373	|0.00	|0.07 |
+|25	|-	|0.000236	|0.00	|0.04 |
+|24	|_	|0.000214	|0.00	|0.08 |
+|23	|~	|0.000149	|0.00	|0.02 |
+|22	|[	|0.000148	|0.00	|0.00 |
+|21	|<	|0.000129	|0.00	|0.01 |
+|20	|+	|0.000112	|0.00	|0.01 |
+|19	|/	|0.000107	|0.00	|0.02 |
+|18	|,	|0.000104	|0.00	|0.00 |
+|17	|;	|0.000073	|0.00	|0.00 |
+|16	|=	|0.000065	|0.00	|0.01 |
+|15	|""	|0.000065	|0.00	|0.02 |
+|14	|?	|0.000064	|0.00	|0.02 |
+|13	|`	|0.000055	|0.00	|0.03 |
+|12	|&	|0.000052	|0.00	|0.03 |
+|11	|%	|0.000051	|0.00	|0.01 |
+|10	|	|0.000039	|0.00	|0.05 |
+|9	|:	|0.000039	|0.00	|0.04 |
+|8	|^	|0.000036	|0.00	|0.01 |
+|7	|\	|0.000031	|0.00	|0.02 |
+|6	|{	|0.000028	|0.00	|0.00 |
+|5	|'	|0.000025	|0.00	|0.01 |
+|4	|)	|0.000024	|0.00	|0.01 |
+|3	|]	|0.000021	|0.00	|0.00 |
+|2	|>	|0.000012	|0.00	|0.01 |
+|1	|pipe	|0.000009	|0.00	|0.00 |
+|0	|}	|0.000003	|0.00	|0.00 |
+
+Please refer to the [full notebook](notebooks/03_tf_seq_to_seq_training_881M.ipynb) for the steps involved in creating the model. 
+
+### Embeddings
+
+* [password vectors trained with 18M records](embeddings/password_tf_vectors_18M.tsv)
+* [password metadata trained with 18M records](embeddings/password_tf_metadata_18M.tsv)
+* [password vectors trained with 881M records](embeddings/password_tf_vectors_881M.tsv)
+* [password metadata trained with 881M records](embeddings/password_tf_metadata_881M.tsv)
+
+You can use http://projector.tensorflow.org/ to visualize the embeddings.
+
+### Authors
+
+Rajashekar Chintalapati and Gaurav Sood
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+.github,https://github.com/themains/.github,,,0,0,0,"# .github
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+bad_domains,https://github.com/themains/bad_domains,Exposure to Malicious Websites,Jupyter Notebook,3,0,0,"### Bad Domains: Exposure to Malicious Content Online
+
+Traditional concerns about the digital divide have been exacerbated by concerns about safety. In this paper, using passively observed domain-level browsing data for a **month** on 1200 Americans from YouGov and data on malicious domains from [Virustotal](https://www.virustotal.com/), we test if the poor, the less educated, the older, or the minorities are more likely to visit malicious websites than their counterparts. 
+
+We find that visits to malicious websites--websites that carry exploits or other malicious artifacts--are highly skewed. The median user visited 4 different websites with malicious content over the month, the 75th percentile visited 9, the 95th percentile 16, and the 99th percentile 48. In all, more than 84\% of people visited at least one website with malicious content/activity over the month.
+
+**Distribution of Number of Unique Websites With Malicious Content Visted, Number of Visits, Time Spent, And Number of Suspicious Websites Visited**
+
+|       |   malicious_unique |   malicious_visits |   malicious_time |   suspicious_bool |
+|:------|-----------------:|-------------------:|-----------------:|------------------:|
+| count |             1134 |               1134 |             1134 |              1134 |
+| mean  |                7 |                190 |              171 |                 2 |
+| std   |               13 |                704 |             1858 |                 4 |
+| min   |                0 |                  0 |                0 |                 0 |
+| 15%   |                0 |                  0 |                0 |                 0 |
+| 16%   |                1 |                  1 |                0 |                 0 |
+| 25%   |                1 |                  4 |                0 |                 0 |
+| 26%   |                1 |                  5 |                0 |                 0 |
+| 50%   |                4 |                 29 |               11 |                 2 |
+| 75%   |                9 |                121 |               47 |                 4 |
+| 95%   |               27 |                783 |              339 |                10 |
+| 99%   |               48 |               2229 |             1876 |                17 |
+| max   |              252 |              15136 |            51376 |                58 |
+
+Visits to malicious sites are not explained well by race. The median is 4 for all races and ethnicities except for 'Other', for whom it is 4.5. There are, however, meaningful differences at the 75th percentile. The 75th percentile is lowest for Hispanics at 7 and highest for African Americans at 10. The time spent on malicious websites has more variegation. The median time spent by African Americans on malicious websites is 15.5 minutes, 11 minutes for Whites, 10.5 minutes for Hispanics, and 8.5 minutes for Asians.
+
+
+**Distribution of Number of Unique Websites With Malicious Content Visited by Race**
+
+| race_lab   |   count |   mean |   std |   min |   25 |   50 |   75 |   max |
+|:-----------|--------:|-------:|------:|------:|-----:|-----:|-----:|------:|
+| White      |     720 |    7.6 |  11.1 |     0 |    1 |  4   |  9   |   133 |
+| Black      |     144 |   10.7 |  25.9 |     0 |    1 |  4   | 10   |   252 |
+| Hispanic   |     168 |    6.8 |   9.5 |     0 |    1 |  4   |  7   |    48 |
+| Asian      |      46 |    6.9 |   9.2 |     0 |    1 |  4   |  8.8 |    43 |
+| Other      |      56 |    6.7 |   8.3 |     0 |    1 |  4.5 |  8   |    39 |
+
+Visits across the sexes show small but systematic differences with men visiting more malicious websites than women. Men also spend more time on websites with malicious content than women. The median number of visits for women is 4, while for men it is 5. Women spend 10 minutes vs. men's 14 minutes.
+
+**Distribution of Number of Unique Websites With Malicious Content Visited by Gender**
+
+| gender_lab   |   count |   mean |   std |   min |   25 |   50 |   75 |   max |
+|:-------------|--------:|-------:|------:|------:|-----:|-----:|-----:|------:|
+| Female       |     595 |    6.9 |  11.4 |     0 |    1 |    4 |    8 |   136 |
+| Male         |     539 |    8.8 |  15.6 |     0 |    1 |    5 |   11 |   252 |
+
+Education matters but the only discernible difference is between people with a postgraduate degree or more and those with less education than that. The median number of different websites with malicious content that people with a postgraduate degree visited was 3 instead of 4 for people with less education than that. We see a similar pattern for time spent on malicious websites with the median time spent by people with a postgraduate education or more being 7 minutes and 12 or 13 minutes for people with less education than that.
+
+**Distribution of Number of Unique Websites With Malicious Content Visited by Education**
+
+|    | educ_lab     |   count |   mean |   std |   min |   25 |   50 |   75 |   max |
+|---:|:-------------|--------:|-------:|------:|------:|-----:|-----:|-----:|------:|
+|  1 | HS or Below  |     411 |    8.1 |  13.9 |     0 |    1 |    4 |  9   |   136 |
+|  3 | Some college |     326 |    8.2 |  17   |     0 |    1 |    4 |  9   |   252 |
+|  0 | College      |     255 |    7.5 |   9.8 |     0 |    1 |    4 | 10   |    64 |
+|  2 | Postgrad     |     142 |    6.3 |   8.9 |     0 |    1 |    3 |  7.8 |    62 |'
+
+
+Lastly, when we look at age, there is a steady increase in the number of unique websites with malicious content visited as people grow older after a plateau between ages of 20 and 40. The trend for [time spent on websites (winsorized)](figs/age_time_malicious_winsorized.png) (or [raw](figs/age_time_malicious.png)) looks broadly similar.
+
+<img src = ""figs/age_n_malicious_winsorized.png"" width = 500px>
+
+#### Data
+
+* [Data](data/)
+* Raw browsing data is on [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VIV4TS) 
+* Virustotal data on domains is on [Harvard Dataverse](https://doi.org/10.7910/DVN/GMNP04)
+
+#### Scripts
+
+* [Process YG Domain Data. Prep. For VT.](scripts/01_rank-chunk.ipynb)
+* [Query VT](scripts/02_query_virustotal.ipynb)
+	- [Query VT via Proxy](scripts/02a_query_virustotal_proxy.nbconvert.ipynb)
+* [Agg./Parse VT](scripts/03_agg_parse_virustotal.ipynb)
+* [Analyze](scripts/04_digital_gap.ipynb)
+
+#### Authors
+
+Lucas Shen and Gaurav Sood
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+pwned_pols,https://github.com/themains/pwned_pols,31% of Indian Lok Sabha MPs have had their data breached at least once.,Jupyter Notebook,2,0,0,"## (O)wned Politicians
+
+Compromised political elites are a problem. To assess how common it is, we check how many public breaches politicians are part of. We query the publicly listed emails of Lok Sabha members (MPs) against the HIBP database. We find that 31\% of the politicans in a Lok Sabha session have been part of at least one breach. More alarmingly, over 22\% of the politicians have had their sensitive data, e.g., Bank account numbers, Biometric data, Browsing histories, Chat logs, Credit card CVV, Credit cards, etc., breached. Given that only a small sliver of breaches become public, this should be treated as an extreme lower bound.
+
+* [Get HIBP Data on LS MPs](scripts/01_get_pwned_ls_pols.ipynb)
+* [Analyze LS Data](scripts/02_analyze_ls_pwnage.ipynb)
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+reg_breach,https://github.com/themains/reg_breach,Have I Been Pwned? Yes. Evidence from HIBP and Emails From Voter Registration Files.,Jupyter Notebook,1,0,0,"### Have I Been Pwned? Yes. Evidence from Florida Voter Registration Data
+
+We query [HIBP](https://haveibeenpwned.com/) with emails from the [Florida voter registration database](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UBIG3F) to estimate how often people's data has been breached. 83.9% of people have had their data breached at least once. The mean number of breaches per email is 6.2 and the median is 5. The average number of serious breaches, e.g., breaches where sensitive data like audio recordings, drug habits, photos, etc., associated with an email is 3.6; the median is 3. Given that data from only a small sliver of breaches are public and given that these breaches are related to one email (people often have multiple addresses), the total number is likely much higher.
+
+
+|       |   total_breaches |   serious_breaches |   non_fab_breaches |
+|:------|-----------------:|-------------------:|-------------------:|
+| count |      1.34819e+06 |        1.34819e+06 |        1.34819e+06 |
+| mean  |      6.22427     |        3.65431     |        6.22425     |
+| std   |      5.865       |        3.90145     |        5.86484     |
+| min   |      0           |        0           |        0           |
+| 25%   |      1           |        1           |        1           |
+| 50%   |      5           |        3           |        5           |
+| 75%   |     10           |        6           |       10           |
+| max   |    390           |      333           |      389           |
+
+
+
+### Digital Divide: Sociodemographic Predictors of Breaches
+
+The median number of breaches rises sharply from 2.5 to over 6 between 18 and 45 years before steadily declining to 3. This trend may reflect a combination of things: 1. total number of online accounts (which plausibly increases with age till you reach people who were too old to sign up for too many services), 2. digital savviness, which may be greatest among the youngest. ([Winsorizing](figs/age_winsorized_breaches.png) doesn't change the pattern much.)
+
+The differences across sex and race/ethnicity are not very stark. The difference between the median number of breaches for men and women is 0 and the 7th percentile is 1. For race/ethnicity, NH White, NH Black, and 'Other' have a higher median (5) than other racial groups (4).
+
+<img src = ""figs/age_breaches.png"" width = 500px>
+
+
+**Total Breaches by Self-Identified Gender**
+
+
+| gender   |   count |   mean |   std |   min |   25 |   50 |   75 |   max |
+|:---------|--------:|-------:|------:|------:|-----:|-----:|-----:|------:|
+| F        |  721828 |    6.4 |   5.8 |     0 |    2 |    5 |   10 |   157 |
+| M        |  605040 |    6   |   5.9 |     0 |    1 |    5 |    9 |   390 |
+
+
+**Total Breaches by Self-Identified Race**
+
+| race_lit         |   count |   mean |   std |   min |   25 |   50 |   75 |   max |
+|:-----------------|--------:|-------:|------:|------:|-----:|-----:|-----:|------:|
+| Asian            |   30518 |    5.9 |   5.8 |     0 |    1 |    4 |    9 |   154 |
+| Hispanic         |  317399 |    5.8 |   5.7 |     0 |    1 |    4 |    9 |   210 |
+| Multi-Racial     |   10046 |    5.7 |   5.8 |     0 |    1 |    4 |    9 |   145 |
+| NH Black         |  184947 |    5.8 |   5.7 |     0 |    1 |    5 |    9 |   265 |
+| NH White         |  750527 |    6.5 |   6   |     0 |    2 |    5 |   10 |   390 |
+| Native Americans |    3764 |    5.8 |   5.7 |     0 |    1 |    4 |    9 |    42 |
+| Other            |   27028 |    6.2 |   5.9 |     0 |    1 |    5 |    9 |   123 |
+| Unknown          |   23957 |    5.3 |   5.6 |     0 |    1 |    4 |    8 |   195 |
+
+
+### Scripts
+
+1. [Get Emails from Florida Voter DB](notebooks/01_fl_dat.ipynb)
+2. [Valid Email Or Not](notebooks/02_valid_email_or_not.ipynb)
+3. [Final Data](notebooks/03_create_final_left_table.ipynb)
+4. [Get HIBP Data](notebooks/04_get_hibp.ipynb)
+5. [Analysis](notebooks/05_concat_fl_dat_analyze.ipynb)
+
+### HIBP Data
+
+https://doi.org/10.7910/DVN/NTN9EP
+
+### References
+
+1. https://gsood.com/research/papers/pwned.pdf
+2. https://github.com/themains/bad_domains
+
+
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"
+guesspass,https://github.com/themains/guesspass,Deep learning seq-to-seq models to predict password from username using leaked password data,Jupyter Notebook,2,0,0,"## guesspass: predict password from username
+
+Building on our work that uses ~881M leaked passwords to build a [character-level password generator](https://github.com/themains/password) as a way to assess password strength, we more directly approach the problem of how predictable is the password in a setting where we know the username. We build a supervised model that uses the username to predict the password. We then test the model to see how well we can predict the password among unseen usernames, assessing the prediction accuracy with edit distance, etc., kinds of metrics. 
+
+In our data, we have the same username appear multiple times. Multiple entries for the same username can exist for three reasons: 1. duplicates (as we synthesize over multiple data breaches), 2. people sign up to multiple accounts with the same username, esp. a commercial email username like gmail and these are all separate accounts, and 3. default for separate accounts may be the same username, e.g., test@mongodb.com. We could split the data into train/test by username to address #1 but in the experiments described below. 
+
+### Experiments
+
+#### Random Sample (9GB)
+
+* [Data Prep.](notebooks/1.0_data_prep.ipynb)
+* [Train](notebooks/2.0_train_9g.ipynb) and [model param. (.pt)](model/pass_predict_9g.pt)
+* Results
+	* [Generate Model Results](notebooks/3.0_results.ipynb)
+	* [Lookup Results](notebooks/3.2_results.ipynb)
+	* [Comparison to username and top 100 most common passwords.](notebooks/3.1_results.ipynb)
+	* [Comparison Between Model and Baselines](notebooks/3.2.1_compare.ipynb)
+
+We do a better job cracking 10,000 test set passwords using the top 100 most common passwords than the model (see [here](notebooks/3.1_results.ipynb)). Of the 10,000 randomly selected usernames, lookup only yields 1700 hits. On the usernames we are able to lookup,  the average min. edit distance over 100 tries from the model is 7.28 while for the lookup, it is 6.23. 
+
+#### Common Usernames
+
+We filter to common usernames (usernames in our database more than 100 times). 
+
+We randomly split the data into train and test and estimate a seq-to-seq model. We measure performance using edit distance and test against the baseline of a simple lookup into the training dataset.
+
+**Notebooks**
+
+* Data Prep.
+	* [Prep. 1](notebooks/1.1_data_prep.ipynb)
+	* [Data Prep.](notebooks/1.2_data_prep.ipynb)
+* [Train](notebooks/2.1_train_top_100_1m.ipynb) and [model param. (.pt)](pass_predict_100_direct_mapping.pt)
+* [Results](notebooks/3.1_results.ipynb)
+
+### Authors
+
+Rajashekar Chintalapati and Gaurav Sood
+","Error generating summary: 
+
+You tried to access openai.Completion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+"

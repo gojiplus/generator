@@ -1,0 +1,37 @@
+name: Generate Repo Summaries
+
+on:
+  workflow_dispatch:
+    inputs:
+      org_name:
+        description: "gojiplus"
+        required: true
+        type: string
+
+jobs:
+  generate-summary:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas openai requests
+
+    - name: Run Script
+      env:
+        GITHUB_TOKEN_ENV: ${{ secrets.MY_GITHUB_TOKEN }}
+        OPENAI_API_KEY_ENV: ${{ secrets.MY_OPENAI_API_KEY }}
+      run: |
+        python scripts/generate_repo_summaries.py \
+          --org_name "${{ github.event.inputs.org_name }}" \
+          --github_token "${{ secrets.MY_GITHUB_TOKEN }}" \
+          --openai_api_key "${{ secrets.MY_OPENAI_API_KEY }}"
