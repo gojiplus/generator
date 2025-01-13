@@ -1,8 +1,8 @@
 ### RepoSum: AutoCreate and Update GitHub Website With Summary of All the Public Repositories
 
-Keeping your GitHub website updated can be a pain. The [./gen_repo_summaries.py](script) iterates over all the repositories in the 'organization' to get the URL and metadata, uses OpenAI to come up with a whippy 2 sentence summary based on the readme of the repository, and generates a CSV. This CSV can be used to power the website. 
+Keeping your GitHub website updated can be a pain. The [script](./gen_repo_summaries.py) iterates over all the repositories in the 'organization' to get the URL and metadata, uses OpenAI to come up with a whippy 2 sentence summary based on the readme of the repository, and generates a CSV. This CSV can be used to power the website. 
 
-The script can be configured to be run using GitHub Actions. The repository shows how under [.github/workflows](.github/workflows). You will have to set your Github and OpenAI tokens.
+The script can be configured to be run using GitHub Actions. See [Github Workflows](.github/workflows). You will need to set your Github and OpenAI tokens.
 
 #### Future
 
