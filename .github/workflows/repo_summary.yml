@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       org_name:
-        description: "gojiplus"
+        description: "GitHub Organization Name"
         required: true
         type: string
 
