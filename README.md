@@ -1,4 +1,4 @@
-### AutoCreate GitHub Website
+### RepoSum: AutoCreate and Update GitHub Website With Summary of All the Public Repositories
 
 Keeping your GitHub website updated can be a pain. We provide a script that runs using GitHub Actions on a regular cadence to:
 
