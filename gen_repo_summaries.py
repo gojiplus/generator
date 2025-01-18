@@ -6,25 +6,27 @@ import openai
 
 def main():
     parser = argparse.ArgumentParser(description="Generate repository summaries")
-    parser.add_argument("--org_name", required=True, help="GitHub Organization Name")
+    parser.add_argument("--name", required=True, help="GitHub Username or Organization Name")
     parser.add_argument("--github_token", required=True, help="GitHub Personal Access Token")
     parser.add_argument("--openai_api_key", required=True, help="OpenAI API Key")
+    parser.add_argument("--type", choices=["user", "org"], required=True, help="Type: 'user' or 'org'")
     args = parser.parse_args()
 
-    org_name = args.org_name
-    personal_access_token = args.github_token
+    name = args.name
+    github_token = args.github_token
     openai_api_key = args.openai_api_key
+    entity_type = args.type
 
     openai.api_key = openai_api_key
-    
-    repos = fetch_repositories(org_name, personal_access_token)
+
+    repos = fetch_repositories(name, github_token, entity_type)
     if repos:
         print(f"Found {len(repos)} repositories:")
         for repo in repos:
             print(f"- {repo['name']} ({repo['html_url']})")
 
         # Convert to pandas DataFrame and include README contents
-        repo_df = create_repo_dataframe(repos, org_name, personal_access_token)
+        repo_df = create_repo_dataframe(repos, name, github_token)
         
         # Add summaries to the DataFrame
         repo_df = add_summaries_to_dataframe(repo_df)
@@ -33,25 +35,25 @@ def main():
         print(repo_df)
 
         # Save DataFrame to a CSV file
-        save_dataframe(repo_df, f"{org_name}_repo_summaries.csv")
+        save_dataframe(repo_df, f"{name}_repo_summaries.csv")
     else:
         print("No repositories found or an error occurred.")
 
-def fetch_repositories(org_name, token):
-    """Fetch all repositories for the given GitHub organization."""
-    url = f"https://api.github.com/orgs/{org_name}/repos"
+def fetch_repositories(name, token, entity_type):
+    """Fetch all repositories for the given GitHub user or organization."""
+    base_url = f"https://api.github.com/{'users' if entity_type == 'user' else 'orgs'}/{name}/repos"
     headers = {"Authorization": f"Bearer {token}"}
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(base_url, headers=headers)
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Error fetching repositories: {e}")
         return []
 
-def fetch_readme(org_name, repo_name, token):
+def fetch_readme(name, repo_name, token):
     """Fetch the README file for a given repository."""
-    url = f"https://api.github.com/repos/{org_name}/{repo_name}/readme"
+    url = f"https://api.github.com/repos/{name}/{repo_name}/readme"
     headers = {"Authorization": f"Bearer {token}"}
     try:
         response = requests.get(url, headers=headers)
@@ -61,11 +63,11 @@ def fetch_readme(org_name, repo_name, token):
     except requests.exceptions.RequestException as e:
         return f"Error fetching README: {e}"
 
-def create_repo_dataframe(repos, org_name, token):
+def create_repo_dataframe(repos, name, token):
     """Convert repository metadata into a pandas DataFrame, including README contents."""
     repo_data = []
     for repo in repos:
-        readme_content = fetch_readme(org_name, repo['name'], token)
+        readme_content = fetch_readme(name, repo['name'], token)
         repo_data.append({
             "Name": repo["name"],
             "URL": repo["html_url"],
