@@ -21,5 +21,3 @@ jobs:
           org_name: ${{ github.event.inputs.org_name }}
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
-
-
