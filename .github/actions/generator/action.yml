@@ -40,4 +40,4 @@ runs:
         OPENAI_API_KEY: ${{ inputs.openai_api_key }}
       run: |
         cd .github/actions/generator
-        python gen_repo_summaries.py --org_name "${{ inputs.org_name }}" --github_token "${{ inputs.github_token }}" --openai_api_key "${{ inputs.openai_api_key }}" --type "org"
+        python gen_repo_summaries.py --org_name "${{ inputs.org_name }}"
