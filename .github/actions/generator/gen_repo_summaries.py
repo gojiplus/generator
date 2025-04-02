@@ -38,9 +38,9 @@ def main():
         print("No repositories found or an error occurred.")
 
 def fetch_repositories(name, token, entity_type):
-    """Fetch all repositories for the given GitHub user or organization."""
-    base_url = f"https://api.github.com/{'users' if entity_type == 'user' else 'orgs'}/{name}/repos"
-    headers = {"Authorization": f"Bearer {token}"}
+    """Fetch all repositories for the given GitHub organization."""
+    base_url = f"https://api.github.com/{'orgs' if entity_type == 'org' else 'users'}/{name}/repos"
+    headers = {"Authorization": f"token {token}"}
     try:
         response = requests.get(base_url, headers=headers)
         response.raise_for_status()
