@@ -1,21 +1,45 @@
 name: 'Generator: Summarize Repos'
+description: 'A GitHub Action to generate summaries for repositories in an organization'
+author: 'Gaurav Sood'
+branding:
+  icon: 'book-open'
+  color: 'blue'
 
-on:
-  workflow_dispatch:
-    inputs:
-      org_name:
-        description: "GitHub Organization Name"
-        required: true
-        type: string
+inputs:
+  org_name:
+    description: 'GitHub Organization Name'
+    required: true
+  github_token:
+    description: 'GitHub Token for API access'
+    required: true
+  openai_api_key:
+    description: 'OpenAI API Key for generating summaries'
+    required: true
 
-jobs:
-  generate-summary:
-    runs-on: ubuntu-latest
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-    steps:
-      - name: Generate Repository Summary
-        uses: ./.github/actions/generator
-        with:
-          org_name: ${{ github.event.inputs.org_name }}
-          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
-          openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas openai requests
+
+    - name: Run Summary Generation Script
+      shell: bash
+      env:
+        GITHUB_TOKEN_ENV: ${{ inputs.github_token }}
+        OPENAI_API_KEY_ENV: ${{ inputs.openai_api_key }}
+      run: |
+        python gen_repo_summaries.py \
+          --org_name "${{ inputs.org_name }}" \
+          --github_token "${{ inputs.github_token }}" \
+          --openai_api_key "${{ inputs.openai_api_key }}"
