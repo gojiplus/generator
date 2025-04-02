@@ -39,6 +39,7 @@ runs:
         GITHUB_TOKEN_ENV: ${{ inputs.github_token }}
         OPENAI_API_KEY_ENV: ${{ inputs.openai_api_key }}
       run: |
+        cd .github/actions/generator
         python gen_repo_summaries.py \
           --org_name "${{ inputs.org_name }}" \
           --github_token "${{ inputs.github_token }}" \
