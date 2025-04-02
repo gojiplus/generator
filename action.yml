@@ -1,6 +1,6 @@
 name: 'Generator: Summarize Repos'
 description: 'A GitHub Action to generate summaries for repositories in an organization'
-author: 'Your Name'
+author: 'Gaurav Sood'
 branding:
   icon: 'book-open'
   color: 'blue'
