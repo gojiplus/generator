@@ -1,4 +1,4 @@
-name: Generate Repo Summaries
+name: Generator: Summarize Repos.
 
 on:
   workflow_dispatch:
