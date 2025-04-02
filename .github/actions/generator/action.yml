@@ -9,12 +9,6 @@ inputs:
   org_name:
     description: 'GitHub Organization Name'
     required: true
-  github_token:
-    description: 'GitHub Token for API access'
-    required: true
-  openai_api_key:
-    description: 'OpenAI API Key for generating summaries'
-    required: true
 
 runs:
   using: 'composite'
@@ -36,8 +30,8 @@ runs:
     - name: Run Summary Generation Script
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
-        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
       run: |
         cd .github/actions/generator
-        python gen_repo_summaries.py --org_name "${{ inputs.org_name }}" --github_token "${{ inputs.github_token }}" --openai_api_key "${{ inputs.openai_api_key }}" --type "org"
+        python gen_repo_summaries.py --org_name "${{ inputs.org_name }}"
