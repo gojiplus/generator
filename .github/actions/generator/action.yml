@@ -1,0 +1,21 @@
+name: 'Generator: Summarize Repos'
+
+on:
+  workflow_dispatch:
+    inputs:
+      org_name:
+        description: "GitHub Organization Name"
+        required: true
+        type: string
+
+jobs:
+  generate-summary:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate Repository Summary
+        uses: ./.github/actions/generator
+        with:
+          org_name: ${{ github.event.inputs.org_name }}
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
