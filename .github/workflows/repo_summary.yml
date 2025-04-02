@@ -1,4 +1,4 @@
-name: Generator: Summarize Repos.
+name: 'Generator: Summarize Repos'
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
