@@ -6,36 +6,34 @@ import openai
 
 def main():
     parser = argparse.ArgumentParser(description="Generate repository summaries")
-    parser.add_argument("--name", required=True, help="GitHub Username or Organization Name")
-    parser.add_argument("--github_token", required=True, help="GitHub Personal Access Token")
-    parser.add_argument("--openai_api_key", required=True, help="OpenAI API Key")
-    parser.add_argument("--type", choices=["user", "org"], required=True, help="Type: 'user' or 'org'")
+    parser.add_argument("--org_name", required=True, help="GitHub Organization Name")
     args = parser.parse_args()
 
-    name = args.name
-    github_token = args.github_token
-    openai_api_key = args.openai_api_key
-    entity_type = args.type
+    org_name = args.org_name
+    repo_type = "org"  # Defaulting to organization; change to "user" if needed.
+
+    # Read tokens from environment variables
+    github_token = os.environ.get("GITHUB_TOKEN")
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not github_token or not openai_api_key:
+        print("Error: GITHUB_TOKEN and/or OPENAI_API_KEY environment variables not set.")
+        exit(1)
 
     openai.api_key = openai_api_key
 
-    repos = fetch_repositories(name, github_token, entity_type)
+    repos = fetch_repositories(org_name, github_token, repo_type)
     if repos:
         print(f"Found {len(repos)} repositories:")
         for repo in repos:
             print(f"- {repo['name']} ({repo['html_url']})")
 
-        # Convert to pandas DataFrame and include README contents
-        repo_df = create_repo_dataframe(repos, name, github_token)
-        
-        # Add summaries to the DataFrame
+        repo_df = create_repo_dataframe(repos, org_name, github_token)
         repo_df = add_summaries_to_dataframe(repo_df)
 
         print("\nRepository Metadata with Summaries as DataFrame:")
         print(repo_df)
 
-        # Save DataFrame to a CSV file
-        save_dataframe(repo_df, f"{name}_repo_summaries.csv")
+        save_dataframe(repo_df, f"{org_name}_repo_summaries.csv")
     else:
         print("No repositories found or an error occurred.")
 
