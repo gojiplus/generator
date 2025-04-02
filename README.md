@@ -1,16 +1,44 @@
-### Generator: AutoCreate and Update GitHub Website With Summary of All the Public Repositories
+## 🏭 Generator: AutoCreate and Update GitHub Website With Summary of All the Public Repositories
 
-Keeping your GitHub website updated can be a pain. The [script](./gen_repo_summaries.py) iterates over all the repositories in the 'organization' to get the URL and metadata, uses OpenAI to generate a whippy two-sentence summary based on the repository's readme, and generates a CSV. This CSV can be used to power the website. 
+Tired of manually updating your organization's website with repository details? Say hello to the ultimate GitHub repository summary generator! 
 
-The script can be configured to be run using GitHub Actions. See [Github Workflows](.github/workflows). You will need to set your Github and OpenAI tokens.
+### ✨ Features
+
+- **Automated Discovery**: Crawls through all public repositories in an organization
+- **AI-Powered Summaries**: Generates crisp, compelling two-sentence descriptions using OpenAI
+- **Flexible Output**: Produces a clean CSV ready for website integration
+- **GitHub Actions Ready**: Seamlessly runs as a workflow
+
+## 🚦 Roadmap
 
 ### Immediate Future
+- 🌐 Create a Jekyll-ready repository for easy website deployment
 
-Create a Jekyll repository that users can conveniently fork and that contains the script that produces markdowns that Jekyll converts to HTML.
+### Upcoming Features
+- 📈 Commit-based change tracking
+- 🎛 Granular repository filtering:
+  - Limit to public repositories
+  - Filter by star count
+  - Custom inclusion/exclusion rules
 
-#### Future
+## 🔧 Configuration
 
-* Look at commits or the changelog to summarize changes since the last update.
-* Users can control what is published via a YAML that takes in arguments such as:
-    1. List only public repositories
-    2. List only repositories with a minimum number of stars
+### Prerequisites
+- GitHub Token
+- OpenAI API Key
+
+### GitHub Actions Setup
+```yaml
+- name: Generate Repo Summaries
+  uses: yourusername/repo-summarizer@v1
+  with:
+    org_name: 'your-org-name'
+```
+
+## 💡 Why Use This?
+
+Keeping your organization's digital presence up-to-date shouldn't be a chore. This tool automates the mundane, letting you focus on what matters - building awesome software!
+
+## 📄 License
+
+[Your License Here - e.g., MIT]
