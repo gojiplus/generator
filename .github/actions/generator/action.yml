@@ -1,5 +1,5 @@
 name: 'Generator: Summarize Repos'
-description: 'A GitHub Action to generate summaries for repositories in an organization'
+description: 'A GitHub Action to generate summaries for repositories in an organization using OpenAI'
 author: 'Gaurav Sood'
 branding:
   icon: 'book-open'
@@ -9,16 +9,6 @@ inputs:
   org_name:
     description: 'GitHub Organization Name'
     required: true
-  github_token:
-    description: 'GitHub Token for API access'
-    required: true
-  openai_api_key:
-    description: 'OpenAI API Key for generating summaries'
-    required: true
-  repo_type:
-    description: 'Type of repository to summarize (org or user)'
-    required: false
-    default: 'org'
 
 runs:
   using: 'composite'
@@ -40,12 +30,7 @@ runs:
     - name: Run Summary Generation Script
       shell: bash
       env:
-        GITHUB_TOKEN_ENV: ${{ inputs.github_token }}
-        OPENAI_API_KEY_ENV: ${{ inputs.openai_api_key }}
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
       run: |
-        cd .github/actions/generator
-        python gen_repo_summaries.py \
-          --name "${{ inputs.org_name }}" \
-          --github_token "${{ inputs.github_token }}" \
-          --openai_api_key "${{ inputs.openai_api_key }}" \
-          --type "${{ inputs.repo_type }}"
+        python gen_repo_summaries.py --org_name "${{ inputs.org_name }}"
