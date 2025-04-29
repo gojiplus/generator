@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
 import argparse
 import os
 import sys
 import requests
 import pandas as pd
 import openai
+import yaml
 
 # -------------------------------------
 # Helpers to fetch GitHub data
@@ -58,15 +60,19 @@ def create_repo_dataframe(repos, token):
         if '/' not in full:
             continue
         org, name = full.split('/', 1)
-        readme = fetch_readme(org, name, token)
+        try:
+            readme = fetch_readme(org, name, token)
+        except Exception:
+            readme = ""
         rows.append({
             'Name': name,
+            'FullName': full,
             'URL': r.get('html_url', ''),
             'Description': r.get('description') or '',
             'Language': r.get('language') or '',
             'Stars': r.get('stargazers_count', 0),
             'Forks': r.get('forks_count', 0),
-            'Open Issues': r.get('open_issues_count', 0),
+            'OpenIssues': r.get('open_issues_count', 0),
             'README': readme,
         })
     return pd.DataFrame(rows)
@@ -74,6 +80,8 @@ def create_repo_dataframe(repos, token):
 
 def summarize_readme(content):
     """Generate a two-sentence summary of the README via OpenAI."""
+    if not content:
+        return ""
     try:
         resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -100,10 +108,12 @@ def add_summaries(df):
 # -------------------------------------
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries")
+    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries (YAML output)")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--org_name', help="GitHub organization name")
     group.add_argument('--repos', help="Comma-separated list of full repos (org/repo)")
+    parser.add_argument('-o', '--output-file', default='repo_summaries.yaml',
+                        help="Output YAML filename (default: repo_summaries.yaml)")
     args = parser.parse_args()
 
     gh_token = os.getenv('GITHUB_TOKEN')
@@ -129,13 +139,12 @@ def main():
     df = create_repo_dataframe(repos_json, gh_token)
     df = add_summaries(df)
 
-    output_file = (
-        args.repos.replace(',', '_').replace('/', '-') + '_summaries.csv'
-        if args.repos else
-        f"{args.org_name}_repo_summaries.csv"
-    )
-    df.to_csv(output_file, index=False)
-    print(f"✅ Saved summaries to {output_file}")
+    # Drop README field and prepare YAML records
+    records = df.drop(columns=['README']).to_dict(orient='records')
+    with open(args.output_file, 'w') as f:
+        yaml.safe_dump(records, f, sort_keys=False)
+
+    print(f"✅ Saved summaries to {args.output_file}")
 
 if __name__ == '__main__':
     main()
