@@ -8,7 +8,7 @@ on:
         required: false
         default: ''
       repos:
-        description: 'Comma-separated list of full repos (org/repo)'
+        description: 'Comma-separated list of specific repos (org/repo)'
         required: false
         default: ''
       output_file:
@@ -34,17 +34,18 @@ jobs:
 
       - name: Generate repository summaries
         env:
+          # Use your GitHub token (PAT) with public_repo or read:org scope
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
           set -e
-          # Build arguments: either --repos or --org_name
+          # Build arguments: use repos list if provided, otherwise org_name
           if [ -n "${{ github.event.inputs.repos }}" ]; then
             CMD_ARGS="--repos ${{ github.event.inputs.repos }}"
           else
             CMD_ARGS="--org_name ${{ github.event.inputs.org_name }}"
           fi
-          # Add output filename
+          # Specify output filename
           CMD_ARGS="$CMD_ARGS -o ${{ github.event.inputs.output_file }}"
 
           echo "Running: python scripts/gen_repo_summaries.py $CMD_ARGS"
