@@ -4,21 +4,23 @@ on:
   workflow_dispatch:
     inputs:
       org_name:
-        description: "GitHub Organization Name"
-        required: true
-        type: string
-        default: "gojiplus"
-      repo_name:
-        description: "(Optional) A single repository to summarize"
+        description: 'GitHub Organization Name (if fetching all repos)'
         required: false
-        type: string
-        default: ""
+        default: ''
+      repos:
+        description: 'Comma-separated list of full repos (org/repo)'
+        required: false
+        default: ''
+      output_file:
+        description: 'Output YAML filename'
+        required: false
+        default: 'repo_summaries.yaml'
 
 jobs:
   generate-summary:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -28,15 +30,22 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pandas openai
+          pip install requests pandas openai pyyaml
 
-      - name: Generate Repository Summaries
+      - name: Generate repository summaries
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
-          python scripts/gen_repo_summaries.py \
-            --org_name "${{ github.event.inputs.org_name }}" \
-            ${{
-              github.event.inputs.repo_name && format('--repo_name "%s"', github.event.inputs.repo_name)
-            }}
+          set -e
+          # Build arguments: either --repos or --org_name
+          if [ -n "${{ inputs.repos }}" ]; then
+            CMD_ARGS="--repos '${{ inputs.repos }}'"
+          else
+            CMD_ARGS="--org_name '${{ inputs.org_name }}'"
+          fi
+          # Add output filename
+          CMD_ARGS="$CMD_ARGS -o '${{ inputs.output_file }}'"
+
+          echo "Running: python scripts/gen_repo_summaries.py $CMD_ARGS"
+          python scripts/gen_repo_summaries.py $CMD_ARGS
