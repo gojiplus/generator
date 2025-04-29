@@ -7,17 +7,34 @@ on:
         description: "GitHub Organization Name"
         required: true
         type: string
+      repo_name:
+        description: "(Optional) A single repository to summarize"
+        required: false
+        type: string
 
 jobs:
   generate-summary:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Generate Repository Summary
-        uses: gen_repo_summaries.py
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          org_name: ${{ github.event.inputs.org_name }}
-          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
-          openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests pandas openai
+
+      - name: Generate Repository Summaries
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
+        run: |
+          python scripts/gen_repo_summaries.py \
+            --org_name "${{ github.event.inputs.org_name }}" \
+            ${{
+              github.event.inputs.repo_name && format('--repo_name "%s"', github.event.inputs.repo_name)
+            }}

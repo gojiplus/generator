@@ -3,39 +3,39 @@ import os
 import requests
 import pandas as pd
 import openai
+import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Generate repository summaries")
-    parser.add_argument("--org_name", required=True, help="GitHub Organization Name")
+    parser.add_argument("--org_name",   required=True,  help="GitHub Organization Name")
+    parser.add_argument("--repo_name",  required=False, help="Single repository to summarize")
     args = parser.parse_args()
 
-    org_name = args.org_name
-    repo_type = "org"  # Defaulting to organization; change to "user" if needed.
-
-    # Read tokens from environment variables
-    github_token = os.environ.get("GITHUB_TOKEN")
+    org_name   = args.org_name
+    repo_name  = args.repo_name
+    github_token   = os.environ.get("GITHUB_TOKEN")
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     if not github_token or not openai_api_key:
-        print("Error: GITHUB_TOKEN and/or OPENAI_API_KEY environment variables not set.")
-        exit(1)
-
+        print("Error: GITHUB_TOKEN and/or OPENAI_API_KEY not set", file=sys.stderr)
+        sys.exit(1)
     openai.api_key = openai_api_key
 
-    repos = fetch_repositories(org_name, github_token, repo_type)
-    if repos:
-        print(f"Found {len(repos)} repositories:")
-        for repo in repos:
-            print(f"- {repo['name']} ({repo['html_url']})")
+    repos = fetch_repositories(org_name, github_token)
 
-        repo_df = create_repo_dataframe(repos, org_name, github_token)
-        repo_df = add_summaries_to_dataframe(repo_df)
+    # if user requested a single repo, filter to it
+    if repo_name:
+        repos = [r for r in repos if r["name"].lower() == repo_name.lower()]
+        if not repos:
+            print(f"No repository named '{repo_name}' found under {org_name}", file=sys.stderr)
+            sys.exit(1)
 
-        print("\nRepository Metadata with Summaries as DataFrame:")
-        print(repo_df)
+    print(f"Found {len(repos)} repo(s).")
 
-        save_dataframe(repo_df, f"{org_name}_repo_summaries.csv")
-    else:
-        print("No repositories found or an error occurred.")
+    df = create_repo_dataframe(repos, org_name, github_token)
+    df = add_summaries_to_dataframe(df)
+    out = f"{org_name}_repo_summaries.csv"
+    df.to_csv(out, index=False)
+    print(f"✅ Saved summaries to {out}")
 
 def fetch_repositories(name, token, entity_type):
     """Fetch all repositories for the given GitHub organization."""
