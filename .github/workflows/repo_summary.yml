@@ -36,24 +36,11 @@ jobs:
 
       - name: Generate repository summaries
         env:
-          # Provide a Personal Access Token (PAT) with `repo` and `read:org` scopes here
-          GH_PAT: ${{ secrets.MY_GITHUB_PAT }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
-          set -e
-          # Determine whether to fetch an org or specific list
-          if [ -n "${{ github.event.inputs.repos }}" ]; then
-            ARGS="--repos ${{ github.event.inputs.repos }}"
-          elif [ -n "${{ github.event.inputs.org_name }}" ]; then
-            ARGS="--org_name ${{ github.event.inputs.org_name }}"
-          else
-            echo "Error: provide either repos or org_name" >&2
-            exit 1
-          fi
+          python scripts/gen_repo_summaries.py \
+            --org_name ${{ github.event.inputs.org_name }} \
+            --token ${{ secrets.MY_GITHUB_TOKEN }} \
+            -o ${{ github.event.inputs.output_file }}
 
-          # Add PAT and output file
-          ARGS="$ARGS --token $GH_PAT -o ${{ github.event.inputs.output_file }}"
-
-          echo "Running: python scripts/gen_repo_summaries.py $ARGS"
-          python scripts/gen_repo_summaries.py $ARGS
 
