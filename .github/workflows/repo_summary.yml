@@ -39,13 +39,13 @@ jobs:
         run: |
           set -e
           # Build arguments: either --repos or --org_name
-          if [ -n "${{ inputs.repos }}" ]; then
-            CMD_ARGS="--repos '${{ inputs.repos }}'"
+          if [ -n "${{ github.event.inputs.repos }}" ]; then
+            CMD_ARGS="--repos ${{ github.event.inputs.repos }}"
           else
-            CMD_ARGS="--org_name '${{ inputs.org_name }}'"
+            CMD_ARGS="--org_name ${{ github.event.inputs.org_name }}"
           fi
           # Add output filename
-          CMD_ARGS="$CMD_ARGS -o '${{ inputs.output_file }}'"
+          CMD_ARGS="$CMD_ARGS -o ${{ github.event.inputs.output_file }}"
 
           echo "Running: python scripts/gen_repo_summaries.py $CMD_ARGS"
           python scripts/gen_repo_summaries.py $CMD_ARGS
