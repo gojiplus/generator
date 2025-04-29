@@ -14,11 +14,35 @@ import json
 def fetch_repositories(org, token):
     """Fetch all repositories for a given GitHub organization."""
     url = f"https://api.github.com/orgs/{org}/repos"
+    
+    # First try without authentication for public repos
     headers = {
-        "Authorization": f"token {token}",  # Use token auth
-        "User-Agent": "GitHubRepoSummarizer/1.0"
+        "User-Agent": "GitHubRepoSummarizer/1.0",
+        "Accept": "application/vnd.github.v3+json"
     }
-    resp = requests.get(url, headers=headers)
+    
+    print(f"Attempting to fetch public repos without authentication")
+    try:
+        resp = requests.get(url, headers=headers)
+        print(f"Public access status: {resp.status_code}")
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception as e:
+        print(f"Public access attempt failed: {e}")
+    
+    # If that fails, try with token auth
+    print(f"Attempting with token authentication")
+    auth_headers = {
+        "Authorization": f"token {token}",
+        "User-Agent": "GitHubRepoSummarizer/1.0",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    
+    resp = requests.get(url, headers=auth_headers)
+    print(f"Authenticated access status: {resp.status_code}")
+    if resp.status_code != 200:
+        print(f"Response content: {resp.text[:500]}")
+    
     resp.raise_for_status()
     return resp.json()
 
