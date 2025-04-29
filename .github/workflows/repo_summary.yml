@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate Repository Summary
-        uses: ./.github/actions/generator
+        uses: gen_repo_summaries.py
         with:
           org_name: ${{ github.event.inputs.org_name }}
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
