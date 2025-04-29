@@ -5,7 +5,7 @@ import sys
 import requests
 import pandas as pd
 import openai
-import yaml
+import json
 
 # -------------------------------------
 # Helpers to fetch GitHub data
@@ -15,8 +15,8 @@ def fetch_repositories(org, token):
     """Fetch all repositories for a given GitHub organization."""
     url = f"https://api.github.com/orgs/{org}/repos"
     headers = {
-        "Authorization": f"token {token}",  # Changed from Bearer to token
-        "User-Agent": "GitHubRepoSummarizer/1.0"  # Added User-Agent
+        "Authorization": f"token {token}",  # Use token auth
+        "User-Agent": "GitHubRepoSummarizer/1.0"
     }
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()
@@ -25,7 +25,7 @@ def fetch_repositories(org, token):
 
 def fetch_specific_repos(repo_list, token):
     """Fetch individual repositories by full name (org/repo)."""
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {"Authorization": f"token {token}"}
     results = []
     for full in repo_list:
         try:
@@ -45,11 +45,15 @@ def fetch_specific_repos(repo_list, token):
 def fetch_readme(org, repo, token):
     """Fetch the README text for a given repository."""
     url = f"https://api.github.com/repos/{org}/{repo}/readme"
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {"Authorization": f"token {token}"}
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()
     data = resp.json()
-    return requests.get(data['download_url']).text
+    download_url = data.get('download_url')
+    if not download_url:
+        return ""
+    readme_resp = requests.get(download_url)
+    return readme_resp.text
 
 # -------------------------------------
 # Build DataFrame and summarize
@@ -89,10 +93,8 @@ def summarize_readme(content):
         resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role":"system","content":"You are a helpful assistant."},
-                {"role":"user","content":
-                    "Summarize the following repository README in two concise sentences:\n\n" + content
-                }
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": "Summarize the following repository README in two concise sentences:\n\n" + content}
             ],
             max_tokens=150,
             temperature=0.7
@@ -107,21 +109,21 @@ def add_summaries(df):
     return df
 
 # -------------------------------------
-# Main
+# Main entry
 # -------------------------------------
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries (YAML output)")
+    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries (JSON output)")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--org_name', help="GitHub organization name")
+    group.add_argument('--org_name', help="GitHub organization name to fetch all repos")
     group.add_argument('--repos', help="Comma-separated list of full repos (org/repo)")
-    parser.add_argument('-o', '--output-file', default='repo_summaries.yaml',
-                        help="Output YAML filename (default: repo_summaries.yaml)")
+    parser.add_argument('-o', '--output-file', default='repo_summaries.json',
+                        help="Output JSON filename (default: repo_summaries.json)")
     args = parser.parse_args()
 
     gh_token = os.getenv('GITHUB_TOKEN')
     oa_key   = os.getenv('OPENAI_API_KEY')
-    if not (gh_token and oa_key):
+    if not gh_token or not oa_key:
         print("Error: GITHUB_TOKEN and OPENAI_API_KEY must be set", file=sys.stderr)
         sys.exit(1)
     openai.api_key = oa_key
@@ -138,14 +140,14 @@ def main():
         print("No repositories found or fetched.", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Building DataFrame for {len(repos_json)} repositories…")
+    print(f"Building summaries for {len(repos_json)} repositories…")
     df = create_repo_dataframe(repos_json, gh_token)
     df = add_summaries(df)
 
-    # Drop README field and prepare YAML records
+    # Prepare JSON records
     records = df.drop(columns=['README']).to_dict(orient='records')
     with open(args.output_file, 'w') as f:
-        yaml.safe_dump(records, f, sort_keys=False)
+        json.dump(records, f, indent=2)
 
     print(f"✅ Saved summaries to {args.output_file}")
 
