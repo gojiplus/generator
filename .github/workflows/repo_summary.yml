@@ -7,10 +7,12 @@ on:
         description: "GitHub Organization Name"
         required: true
         type: string
+        default: "gojiplus"
       repo_name:
         description: "(Optional) A single repository to summarize"
         required: false
         type: string
+        default: ""
 
 jobs:
   generate-summary:
