@@ -37,7 +37,7 @@ jobs:
       - name: Generate repository summaries
         env:
           # Use a PAT (not the built-in GITHUB_TOKEN) for GitHub API
-          GITHUB_PAT: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
           set -e
@@ -50,8 +50,8 @@ jobs:
             echo "Error: either repos or org_name must be provided" >&2
             exit 1
           fi
-          # Add output file and token
-          ARGS="$ARGS -o ${{ github.event.inputs.output_file }} --token $GITHUB_PAT"
+          # Add output file
+          ARGS="$ARGS -o ${{ github.event.inputs.output_file }}"
 
           echo "Running: python scripts/gen_repo_summaries.py $ARGS"
           python scripts/gen_repo_summaries.py $ARGS
