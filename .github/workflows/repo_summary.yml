@@ -36,11 +36,10 @@ jobs:
 
       - name: Generate repository summaries
         env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
           python scripts/gen_repo_summaries.py \
             --org_name ${{ github.event.inputs.org_name }} \
-            --token ${{ secrets.MY_GITHUB_TOKEN }} \
             -o ${{ github.event.inputs.output_file }}
-
 
