@@ -6,21 +6,21 @@ on:
       org_name:
         description: 'GitHub Organization Name (if fetching all repos)'
         required: false
-        default: ''
+        default: 'matmulai'
       repos:
         description: 'Comma-separated list of specific repos (org/repo)'
         required: false
         default: ''
       output_file:
-        description: 'Output YAML filename'
+        description: 'Output JSON filename'
         required: false
-        default: 'repo_summaries.yaml'
+        default: 'repo_summaries.json'
 
 jobs:
   generate-summary:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read    # only needed for checkout
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,26 +32,28 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pandas openai pyyaml
+          pip install requests pandas openai
 
       - name: Generate repository summaries
         env:
-          # Use a PAT (not the built-in GITHUB_TOKEN) for GitHub API
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          # Provide a Personal Access Token (PAT) with `repo` and `read:org` scopes here
+          GH_PAT: ${{ secrets.MY_GITHUB_PAT }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
           set -e
-          # Determine arguments
+          # Determine whether to fetch an org or specific list
           if [ -n "${{ github.event.inputs.repos }}" ]; then
             ARGS="--repos ${{ github.event.inputs.repos }}"
           elif [ -n "${{ github.event.inputs.org_name }}" ]; then
             ARGS="--org_name ${{ github.event.inputs.org_name }}"
           else
-            echo "Error: either repos or org_name must be provided" >&2
+            echo "Error: provide either repos or org_name" >&2
             exit 1
           fi
-          # Add output file
-          ARGS="$ARGS -o ${{ github.event.inputs.output_file }}"
+
+          # Add PAT and output file
+          ARGS="$ARGS --token $GH_PAT -o ${{ github.event.inputs.output_file }}"
 
           echo "Running: python scripts/gen_repo_summaries.py $ARGS"
           python scripts/gen_repo_summaries.py $ARGS
+
