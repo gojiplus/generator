@@ -19,6 +19,8 @@ on:
 jobs:
   generate-summary:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,19 +36,22 @@ jobs:
 
       - name: Generate repository summaries
         env:
-          # Use your GitHub token (PAT) with public_repo or read:org scope
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          # Use a PAT (not the built-in GITHUB_TOKEN) for GitHub API
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
         run: |
           set -e
-          # Build arguments: use repos list if provided, otherwise org_name
+          # Determine arguments
           if [ -n "${{ github.event.inputs.repos }}" ]; then
-            CMD_ARGS="--repos ${{ github.event.inputs.repos }}"
+            ARGS="--repos ${{ github.event.inputs.repos }}"
+          elif [ -n "${{ github.event.inputs.org_name }}" ]; then
+            ARGS="--org_name ${{ github.event.inputs.org_name }}"
           else
-            CMD_ARGS="--org_name ${{ github.event.inputs.org_name }}"
+            echo "Error: either repos or org_name must be provided" >&2
+            exit 1
           fi
-          # Specify output filename
-          CMD_ARGS="$CMD_ARGS -o ${{ github.event.inputs.output_file }}"
+          # Add output file and token
+          ARGS="$ARGS -o ${{ github.event.inputs.output_file }} --token $GITHUB_PAT"
 
-          echo "Running: python scripts/gen_repo_summaries.py $CMD_ARGS"
-          python scripts/gen_repo_summaries.py $CMD_ARGS
+          echo "Running: python scripts/gen_repo_summaries.py $ARGS"
+          python scripts/gen_repo_summaries.py $ARGS
