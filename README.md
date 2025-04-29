@@ -41,4 +41,4 @@ Keeping your organization's digital presence up-to-date shouldn't be a chore. Th
 
 ## 📄 License
 
-[Your License Here - e.g., MIT]
+MIT @ MatmulAI
