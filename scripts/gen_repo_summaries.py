@@ -1,108 +1,141 @@
 import argparse
 import os
+import sys
 import requests
 import pandas as pd
 import openai
-import sys
 
-def main():
-    parser = argparse.ArgumentParser(description="Generate repository summaries")
-    parser.add_argument("--org_name",   required=True,  help="GitHub Organization Name")
-    parser.add_argument("--repo_name",  required=False, help="Single repository to summarize")
-    args = parser.parse_args()
+# -------------------------------------
+# Helpers to fetch GitHub data
+# -------------------------------------
 
-    org_name   = args.org_name
-    repo_name  = args.repo_name
-    github_token   = os.environ.get("GITHUB_TOKEN")
-    openai_api_key = os.environ.get("OPENAI_API_KEY")
-    if not github_token or not openai_api_key:
-        print("Error: GITHUB_TOKEN and/or OPENAI_API_KEY not set", file=sys.stderr)
-        sys.exit(1)
-    openai.api_key = openai_api_key
-
-    repos = fetch_repositories(org_name, github_token)
-
-    # if user requested a single repo, filter to it
-    if repo_name:
-        repos = [r for r in repos if r["name"].lower() == repo_name.lower()]
-        if not repos:
-            print(f"No repository named '{repo_name}' found under {org_name}", file=sys.stderr)
-            sys.exit(1)
-
-    print(f"Found {len(repos)} repo(s).")
-
-    df = create_repo_dataframe(repos, org_name, github_token)
-    df = add_summaries_to_dataframe(df)
-    out = f"{org_name}_repo_summaries.csv"
-    df.to_csv(out, index=False)
-    print(f"✅ Saved summaries to {out}")
-
-def fetch_repositories(name, token, entity_type):
-    """Fetch all repositories for the given GitHub organization."""
-    base_url = f"https://api.github.com/{'orgs' if entity_type == 'org' else 'users'}/{name}/repos"
-    headers = {"Authorization": f"token {token}"}
-    try:
-        response = requests.get(base_url, headers=headers)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching repositories: {e}")
-        return []
-
-def fetch_readme(name, repo_name, token):
-    """Fetch the README file for a given repository."""
-    url = f"https://api.github.com/repos/{name}/{repo_name}/readme"
+def fetch_repositories(org, token):
+    """Fetch all repositories for a given GitHub organization."""
+    url = f"https://api.github.com/orgs/{org}/repos"
     headers = {"Authorization": f"Bearer {token}"}
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        readme_data = response.json()
-        return requests.get(readme_data['download_url']).text
-    except requests.exceptions.RequestException as e:
-        return f"Error fetching README: {e}"
+    resp = requests.get(url, headers=headers)
+    resp.raise_for_status()
+    return resp.json()
 
-def create_repo_dataframe(repos, name, token):
-    """Convert repository metadata into a pandas DataFrame, including README contents."""
-    repo_data = []
-    for repo in repos:
-        readme_content = fetch_readme(name, repo['name'], token)
-        repo_data.append({
-            "Name": repo["name"],
-            "URL": repo["html_url"],
-            "Description": repo.get("description", "N/A"),
-            "Language": repo.get("language", "N/A"),
-            "Stars": repo.get("stargazers_count", 0),
-            "Forks": repo.get("forks_count", 0),
-            "Open Issues": repo.get("open_issues_count", 0),
-            "README": readme_content,
+
+def fetch_specific_repos(repo_list, token):
+    """Fetch individual repositories by full name (org/repo)."""
+    headers = {"Authorization": f"Bearer {token}"}
+    results = []
+    for full in repo_list:
+        try:
+            org, repo = full.split('/', 1)
+        except ValueError:
+            print(f"⚠️  Invalid repository format: '{full}', skipping.", file=sys.stderr)
+            continue
+        url = f"https://api.github.com/repos/{org}/{repo}"
+        resp = requests.get(url, headers=headers)
+        if resp.status_code == 200:
+            results.append(resp.json())
+        else:
+            print(f"⚠️  Could not fetch '{full}' (status {resp.status_code}), skipping.", file=sys.stderr)
+    return results
+
+
+def fetch_readme(org, repo, token):
+    """Fetch the README text for a given repository."""
+    url = f"https://api.github.com/repos/{org}/{repo}/readme"
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(url, headers=headers)
+    resp.raise_for_status()
+    data = resp.json()
+    return requests.get(data['download_url']).text
+
+# -------------------------------------
+# Build DataFrame and summarize
+# -------------------------------------
+
+def create_repo_dataframe(repos, token):
+    """Convert repository metadata into a DataFrame, including README."""
+    rows = []
+    for r in repos:
+        full = r.get('full_name', '')
+        if '/' not in full:
+            continue
+        org, name = full.split('/', 1)
+        readme = fetch_readme(org, name, token)
+        rows.append({
+            'Name': name,
+            'URL': r.get('html_url', ''),
+            'Description': r.get('description') or '',
+            'Language': r.get('language') or '',
+            'Stars': r.get('stargazers_count', 0),
+            'Forks': r.get('forks_count', 0),
+            'Open Issues': r.get('open_issues_count', 0),
+            'README': readme,
         })
-    return pd.DataFrame(repo_data)
+    return pd.DataFrame(rows)
 
-def summarize_readme(readme_content):
-    """Use OpenAI API to generate a two-sentence summary of the README content."""
+
+def summarize_readme(content):
+    """Generate a two-sentence summary of the README via OpenAI."""
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=f"Summarize the following repository README in two marketable sentences:\n\n{readme_content}",
-            max_tokens=100,
+        resp = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role":"system","content":"You are a helpful assistant."},
+                {"role":"user","content":
+                    "Summarize the following repository README in two concise sentences:\n\n" + content
+                }
+            ],
+            max_tokens=150,
             temperature=0.7
         )
-        return response.choices[0].text.strip()
+        return resp.choices[0].message.content.strip()
     except Exception as e:
-        return f"Error generating summary: {e}"
+        return f"[Error summarizing: {e}]"
 
-def add_summaries_to_dataframe(df):
-    """Add a summary column to the DataFrame with summaries of each README."""
-    df["Summary"] = df["README"].apply(summarize_readme)
+
+def add_summaries(df):
+    df['Summary'] = df['README'].apply(summarize_readme)
     return df
 
-def save_dataframe(df, filename):
-    """Save the DataFrame to a CSV file."""
-    try:
-        df.to_csv(filename, index=False)
-        print(f"DataFrame saved to {filename}")
-    except Exception as e:
-        print(f"Error saving DataFrame: {e}")
+# -------------------------------------
+# Main
+# -------------------------------------
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--org_name', help="GitHub organization name")
+    group.add_argument('--repos', help="Comma-separated list of full repos (org/repo)")
+    args = parser.parse_args()
+
+    gh_token = os.getenv('GITHUB_TOKEN')
+    oa_key   = os.getenv('OPENAI_API_KEY')
+    if not (gh_token and oa_key):
+        print("Error: GITHUB_TOKEN and OPENAI_API_KEY must be set", file=sys.stderr)
+        sys.exit(1)
+    openai.api_key = oa_key
+
+    if args.repos:
+        repo_list = [r.strip() for r in args.repos.split(',') if r.strip()]
+        print(f"🔍 Fetching specific repos: {repo_list}")
+        repos_json = fetch_specific_repos(repo_list, gh_token)
+    else:
+        print(f"🔍 Fetching all repos for org: {args.org_name}")
+        repos_json = fetch_repositories(args.org_name, gh_token)
+
+    if not repos_json:
+        print("No repositories found or fetched.", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Building DataFrame for {len(repos_json)} repositories…")
+    df = create_repo_dataframe(repos_json, gh_token)
+    df = add_summaries(df)
+
+    output_file = (
+        args.repos.replace(',', '_').replace('/', '-') + '_summaries.csv'
+        if args.repos else
+        f"{args.org_name}_repo_summaries.csv"
+    )
+    df.to_csv(output_file, index=False)
+    print(f"✅ Saved summaries to {output_file}")
+
+if __name__ == '__main__':
     main()
