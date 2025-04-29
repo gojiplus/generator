@@ -4,7 +4,6 @@ author: 'Gaurav Sood'
 branding:
   icon: 'book-open'
   color: 'blue'
-
 inputs:
   org_name:
     description: 'GitHub Organization Name'
@@ -15,29 +14,24 @@ inputs:
   openai_api_key:
     description: 'OpenAI API Key for generating summaries'
     required: true
-
 runs:
   using: 'composite'
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
-
     - name: Install Dependencies
       shell: bash
       run: |
         python -m pip install --upgrade pip
         pip install pandas openai requests
-
     - name: Run Summary Generation Script
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
         OPENAI_API_KEY: ${{ inputs.openai_api_key }}
       run: |
-        cd .github/actions/generator
-        python gen_repo_summaries.py --org_name "${{ inputs.org_name }}"
+        python ${{ github.action_path }}/scripts/gen_repo_summaries.py --org_name "${{ inputs.org_name }}"
