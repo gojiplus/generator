@@ -14,7 +14,10 @@ import yaml
 def fetch_repositories(org, token):
     """Fetch all repositories for a given GitHub organization."""
     url = f"https://api.github.com/orgs/{org}/repos"
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {
+        "Authorization": f"token {token}",  # Changed from Bearer to token
+        "User-Agent": "GitHubRepoSummarizer/1.0"  # Added User-Agent
+    }
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()
     return resp.json()
