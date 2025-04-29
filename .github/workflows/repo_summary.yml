@@ -1,45 +1,38 @@
 name: 'Generator: Summarize Repos'
-
-on:
-  workflow_dispatch:
-    inputs:
-      org_name:
-        description: 'GitHub Organization Name (if fetching all repos)'
-        required: false
-        default: 'matmulai'
-      repos:
-        description: 'Comma-separated list of specific repos (org/repo)'
-        required: false
-        default: ''
-      output_file:
-        description: 'Output JSON filename'
-        required: false
-        default: 'repo_summaries.json'
-
-jobs:
-  generate-summary:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read    # only needed for checkout
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: |
-          pip install requests pandas openai
-
-      - name: Generate repository summaries
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.MY_OPENAI_API_KEY }}
-        run: |
-          python scripts/gen_repo_summaries.py \
-            --org_name ${{ github.event.inputs.org_name }} \
-            -o ${{ github.event.inputs.output_file }}
-
+description: 'A GitHub Action to generate summaries for repositories in an organization using OpenAI'
+author: 'Gaurav Sood'
+branding:
+  icon: 'book-open'
+  color: 'blue'
+inputs:
+  org_name:
+    description: 'GitHub Organization Name'
+    required: true
+  github_token:
+    description: 'GitHub Token for API access'
+    required: true
+  openai_api_key:
+    description: 'OpenAI API Key for generating summaries'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas openai requests
+    - name: Run Summary Generation Script
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
+      run: |
+        python ${{ github.action_path }}/scripts/gen_repo_summaries.py --org_name "${{ inputs.org_name }}"
+        
