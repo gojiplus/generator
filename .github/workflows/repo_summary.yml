@@ -1,5 +1,4 @@
 name: 'Summarize Repositories'
-
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +6,6 @@ on:
         description: 'GitHub Organization Name'
         required: true
         type: string
-
 jobs:
   summarize:
     runs-on: ubuntu-latest
@@ -16,8 +14,15 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Generate Repository Summaries
-        uses: ./  # This looks for action.yml in the root
+        uses: ./
         with:
           org_name: ${{ inputs.org_name }}
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
+      
+      # Add this step to save the output
+      - name: Upload Summary File
+        uses: actions/upload-artifact@v3
+        with:
+          name: repository-summaries-${{ inputs.org_name }}
+          path: portfolio_summaries.json
