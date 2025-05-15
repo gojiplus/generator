@@ -6,23 +6,30 @@ on:
         description: 'GitHub Organization Name'
         required: true
         type: string
+
 jobs:
   summarize:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        
+        with:
+          fetch-depth: 0                # needed if you’ll push new commits
+
       - name: Generate Repository Summaries
         uses: ./
         with:
           org_name: ${{ inputs.org_name }}
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
-      
-      # Updated to v4
-      - name: Upload Summary File
-        uses: actions/upload-artifact@v4
+
+      - name: Commit summaries to repo
+        uses: EndBug/add-and-commit@v9
         with:
-          name: repository-summaries-${{ inputs.org_name }}
-          path: portfolio_summaries.json
+          author_name: github-actions
+          author_email: github-actions@github.com
+          message: "chore: update portfolio_summaries.json"
+          # only add this single file
+          add: "portfolio_summaries.json"
+
+
