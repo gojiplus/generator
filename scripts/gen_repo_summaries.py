@@ -15,10 +15,10 @@ def fetch_repositories(org, token):
     """Fetch all repositories for a given GitHub organization."""
     url = f"https://api.github.com/orgs/{org}/repos"
     
-    # First try without authentication for public repos
+    # Headers to include topics in response
     headers = {
         "User-Agent": "GitHubRepoSummarizer/1.0",
-        "Accept": "application/vnd.github.v3+json"
+        "Accept": "application/vnd.github.mercy-preview+json"  # For topics
     }
     
     print(f"Attempting to fetch public repos without authentication")
@@ -35,7 +35,7 @@ def fetch_repositories(org, token):
     auth_headers = {
         "Authorization": f"token {token}",
         "User-Agent": "GitHubRepoSummarizer/1.0",
-        "Accept": "application/vnd.github.v3+json"
+        "Accept": "application/vnd.github.mercy-preview+json"  # For topics
     }
     
     resp = requests.get(url, headers=auth_headers)
@@ -49,7 +49,10 @@ def fetch_repositories(org, token):
 
 def fetch_specific_repos(repo_list, token):
     """Fetch individual repositories by full name (org/repo)."""
-    headers = {"Authorization": f"token {token}"}
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.mercy-preview+json"  # For topics
+    }
     results = []
     for full in repo_list:
         try:
@@ -104,12 +107,13 @@ def create_repo_dataframe(repos, token):
             'Stars': r.get('stargazers_count', 0),
             'Forks': r.get('forks_count', 0),
             'OpenIssues': r.get('open_issues_count', 0),
+            'Topics': r.get('topics', []),  # GitHub topics/tags
             'README': readme,
         })
     return pd.DataFrame(rows)
 
 
-def summarize_readme(content, repo_name, language, description):
+def summarize_readme(content, repo_name, language, description, topics):
     """Generate a compelling portfolio summary of the README via OpenAI."""
     if not content and not description:
         return ""
@@ -120,6 +124,8 @@ def summarize_readme(content, repo_name, language, description):
         context_info += f" (Built with {language})"
     if description:
         context_info += f"\nGitHub Description: {description}"
+    if topics:
+        context_info += f"\nTopics/Tags: {', '.join(topics)}"
     
     prompt = f"""Create an engaging portfolio summary for this software project. Focus on:
 - What the project does and its main purpose
@@ -162,7 +168,8 @@ def add_summaries(df):
             row['README'], 
             row['Name'], 
             row['Language'], 
-            row['Description']
+            row['Description'],
+            row['Topics']
         )
         summaries.append(summary)
         print(f"✓ Generated summary for {row['Name']}")
@@ -222,6 +229,7 @@ def main():
             'stars': row['Stars'],
             'forks': row['Forks'],
             'openIssues': row['OpenIssues'],
+            'topics': row['Topics'],  # Include topics in output
             'summary': row['Summary'],
             'featured': row['Stars'] > 5 or row['Forks'] > 2,  # Auto-mark popular repos as featured
         }
