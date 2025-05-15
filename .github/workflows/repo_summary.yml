@@ -12,8 +12,11 @@ jobs:
   summarize:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
       - name: Generate Repository Summaries
-        uses: ./  # If action is in same repo, or org/repo-name if external
+        uses: ./  # This looks for action.yml in the root
         with:
           org_name: ${{ inputs.org_name }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
