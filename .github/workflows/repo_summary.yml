@@ -20,9 +20,9 @@ jobs:
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           openai_api_key: ${{ secrets.MY_OPENAI_API_KEY }}
       
-      # Add this step to save the output
+      # Updated to v4
       - name: Upload Summary File
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: repository-summaries-${{ inputs.org_name }}
           path: portfolio_summaries.json
