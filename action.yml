@@ -1,9 +1,11 @@
 name: 'Generator: Summarize Repos'
 description: 'A GitHub Action to generate summaries for repositories in an organization using OpenAI'
 author: 'Gaurav Sood'
+
 branding:
   icon: 'book-open'
   color: 'blue'
+
 inputs:
   org_name:
     description: 'GitHub Organization Name'
@@ -11,23 +13,28 @@ inputs:
   github_token:
     description: 'GitHub Token for API access'
     required: true
+    default: ${{ github.token }}
   openai_api_key:
     description: 'OpenAI API Key for generating summaries'
     required: true
+
 runs:
   using: 'composite'
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+      
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
+        
     - name: Install Dependencies
       shell: bash
       run: |
         python -m pip install --upgrade pip
         pip install pandas openai requests
+        
     - name: Run Summary Generation Script
       shell: bash
       env:
