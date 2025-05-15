@@ -109,27 +109,65 @@ def create_repo_dataframe(repos, token):
     return pd.DataFrame(rows)
 
 
-def summarize_readme(content):
-    """Generate a two-sentence summary of the README via OpenAI."""
-    if not content:
+def summarize_readme(content, repo_name, language, description):
+    """Generate a compelling portfolio summary of the README via OpenAI."""
+    if not content and not description:
         return ""
+    
+    # Create a more comprehensive prompt for better summaries
+    context_info = f"Repository: {repo_name}"
+    if language:
+        context_info += f" (Built with {language})"
+    if description:
+        context_info += f"\nGitHub Description: {description}"
+    
+    prompt = f"""Create an engaging portfolio summary for this software project. Focus on:
+- What the project does and its main purpose
+- Key features and capabilities
+- Technical implementation highlights
+- Why it's impressive or noteworthy
+
+{context_info}
+
+README Content:
+{content[:3000] if content else 'No README available'}
+
+Write a compelling 3-4 sentence summary that would showcase this project well in a developer portfolio. Make it sound professional but engaging, highlighting the technical skills and problem-solving involved."""
+
     try:
-        resp = openai.ChatCompletion.create(
+        # Use the newer OpenAI client syntax
+        client = openai.OpenAI()
+        resp = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "Summarize the following repository README in two concise sentences:\n\n" + content}
+                {"role": "system", "content": "You are a technical writer specializing in creating compelling project descriptions for developer portfolios."},
+                {"role": "user", "content": prompt}
             ],
-            max_tokens=150,
+            max_tokens=200,
             temperature=0.7
         )
         return resp.choices[0].message.content.strip()
     except Exception as e:
-        return f"[Error summarizing: {e}]"
+        # Fallback to use the basic description if OpenAI fails
+        if description:
+            return f"{description} This {language or 'software'} project demonstrates practical development skills and problem-solving capabilities."
+        return f"[Error generating summary: {e}]"
 
 
 def add_summaries(df):
-    df['Summary'] = df['README'].apply(summarize_readme)
+    """Add portfolio-style summaries to the dataframe."""
+    summaries = []
+    for _, row in df.iterrows():
+        summary = summarize_readme(
+            row['README'], 
+            row['Name'], 
+            row['Language'], 
+            row['Description']
+        )
+        summaries.append(summary)
+        print(f"✓ Generated summary for {row['Name']}")
+    
+    df['Summary'] = summaries
     return df
 
 # -------------------------------------
@@ -137,12 +175,14 @@ def add_summaries(df):
 # -------------------------------------
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries (JSON output)")
+    parser = argparse.ArgumentParser(description="Generate GitHub repo summaries for portfolio (JSON output)")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--org_name', help="GitHub organization name to fetch all repos")
     group.add_argument('--repos', help="Comma-separated list of full repos (org/repo)")
-    parser.add_argument('-o', '--output-file', default='repo_summaries.json',
-                        help="Output JSON filename (default: repo_summaries.json)")
+    parser.add_argument('-o', '--output-file', default='portfolio_summaries.json',
+                        help="Output JSON filename (default: portfolio_summaries.json)")
+    parser.add_argument('--model', default='gpt-3.5-turbo',
+                        help="OpenAI model to use (default: gpt-3.5-turbo)")
     args = parser.parse_args()
 
     gh_token = os.getenv('GITHUB_TOKEN')
@@ -150,6 +190,8 @@ def main():
     if not gh_token or not oa_key:
         print("Error: GITHUB_TOKEN and OPENAI_API_KEY must be set", file=sys.stderr)
         sys.exit(1)
+    
+    # Set up OpenAI client
     openai.api_key = oa_key
 
     if args.repos:
@@ -164,16 +206,37 @@ def main():
         print("No repositories found or fetched.", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Building summaries for {len(repos_json)} repositories…")
+    print(f"Building portfolio summaries for {len(repos_json)} repositories…")
     df = create_repo_dataframe(repos_json, gh_token)
     df = add_summaries(df)
 
-    # Prepare JSON records
-    records = df.drop(columns=['README']).to_dict(orient='records')
+    # Prepare JSON records with additional portfolio-friendly fields
+    records = []
+    for _, row in df.iterrows():
+        record = {
+            'name': row['Name'],
+            'fullName': row['FullName'],
+            'url': row['URL'],
+            'description': row['Description'],
+            'language': row['Language'],
+            'stars': row['Stars'],
+            'forks': row['Forks'],
+            'openIssues': row['OpenIssues'],
+            'summary': row['Summary'],
+            'featured': row['Stars'] > 5 or row['Forks'] > 2,  # Auto-mark popular repos as featured
+        }
+        records.append(record)
+    
+    # Sort by stars descending for better portfolio ordering
+    records.sort(key=lambda x: x['stars'], reverse=True)
+    
     with open(args.output_file, 'w') as f:
         json.dump(records, f, indent=2)
 
-    print(f"✅ Saved summaries to {args.output_file}")
+    print(f"✅ Saved portfolio summaries to {args.output_file}")
+    print(f"📊 Generated summaries for {len(records)} repositories")
+    featured_count = sum(1 for r in records if r['featured'])
+    print(f"⭐ {featured_count} repositories marked as featured")
 
 if __name__ == '__main__':
     main()
